@@ -1690,6 +1690,10 @@
 
 <script>
   // ─── ROUTER ───
+  // navToggle / navLinks declared up front since navigate() below references navLinks
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+
   const routes = ['home', 'about', 'services', 'results', 'pricing', 'testimonials', 'contact'];
   const pageTitles = {
     home: "Dr. Unwala's Dental Clinic | Expert Dental Care in Mumbai",
@@ -1764,8 +1768,6 @@
   });
 
   // ─── MOBILE NAV TOGGLE ───
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
   navToggle.addEventListener('click', () => {
     navLinks.classList.toggle('open');
   });
