@@ -922,6 +922,156 @@ footer{
 .reveal-delay-3{transition-delay:0.3s}
 .reveal-delay-4{transition-delay:0.4s}
 
+/* ── ABOUT PAGE STYLES ───────────────────────────────────────── */
+.about-hero-section {
+  background: linear-gradient(135deg,#1a0812,#3d1027);
+  padding: 160px 0 100px;
+}
+.about-main {
+  background: var(--white);
+  padding: 100px 0;
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.about-photo-col {
+  position: sticky;
+  top: 100px;
+}
+.about-photo-frame {
+  border-radius: 24px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  box-shadow: 0 32px 80px rgba(199,62,103,0.2);
+  position: relative;
+}
+.about-photo-frame img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.about-photo-caption {
+  margin-top: 20px;
+  text-align: center;
+}
+.about-photo-caption .name {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+.about-photo-caption .creds {
+  font-size: 0.78rem;
+  color: #888;
+  margin-top: 4px;
+  line-height: 1.5;
+}
+.about-text-col {}
+.about-text-col .section-tag { margin-bottom: 16px; }
+.about-h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 500;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 28px;
+}
+.about-h2 em { font-style: italic; color: var(--rose); }
+.about-p {
+  font-size: 0.97rem;
+  line-height: 1.85;
+  color: #555;
+  margin-bottom: 20px;
+}
+.about-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.3rem;
+  line-height: 1.6;
+  color: var(--rose);
+  border-left: 3px solid var(--blush);
+  padding: 4px 0 4px 24px;
+  margin: 36px 0;
+}
+.about-credentials {
+  background: var(--pearl);
+  border-radius: 20px;
+  padding: 32px;
+  margin: 36px 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.cred-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+.cred-icon {
+  width: 42px; height: 42px;
+  background: linear-gradient(135deg, var(--lavender), var(--blush));
+  border-radius: 11px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.cred-icon svg { width: 18px; height: 18px; color: var(--rose); }
+.cred-label {
+  font-size: 0.68rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #999;
+  margin-bottom: 3px;
+}
+.cred-val {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+.about-values {
+  margin-top: 36px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px 24px;
+  background: var(--white);
+  border: 1px solid var(--pearl);
+  border-radius: 16px;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+.value-item:hover {
+  border-color: var(--blush);
+  box-shadow: 0 4px 20px rgba(199,62,103,0.08);
+}
+.value-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--rose);
+  opacity: 0.35;
+  line-height: 1;
+  flex-shrink: 0;
+  width: 28px;
+  margin-top: 2px;
+}
+.value-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+.value-desc {
+  font-size: 0.83rem;
+  color: #777;
+  line-height: 1.6;
+}
+
 /* ── MOBILE ──────────────────────────────────────────────────── */
 @media(max-width:1024px){
   :root{--section-pad:80px}
@@ -942,6 +1092,9 @@ footer{
   nav.scrolled .hamburger{color:var(--ink)}
   .container{padding:0 24px}
   .testimonials-track{padding:0 24px 24px}
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .about-photo-col{position:static;max-width:360px;margin:0 auto}
+  .about-credentials{grid-template-columns:1fr}
 }
 @media(max-width:640px){
   :root{--section-pad:64px}
@@ -950,6 +1103,7 @@ footer{
   .hero-stats{flex-wrap:wrap;gap:24px}
   .hero-content{padding:0 24px}
   .pricing-grid{padding:0}
+  .about-credentials{grid-template-columns:1fr}
 }
 
 /* Page sections hidden by default */
@@ -964,9 +1118,7 @@ footer{
 <div id="loader">
   <div class="loader-tooth">
     <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
-      <!-- filled tooth shape (fades in after draw) -->
       <path class="fill-tooth" d="M40 8 C28 8 18 14 15 24 C12 33 14 42 16 50 C18 60 19 72 22 80 C23 84 26 86 29 85 C32 84 33 78 34 72 C35 66 36 62 40 62 C44 62 45 66 46 72 C47 78 48 84 51 85 C54 86 57 84 58 80 C61 72 62 60 64 50 C66 42 68 33 65 24 C62 14 52 8 40 8Z"/>
-      <!-- stroke path for drawing animation -->
       <path d="M40 8 C28 8 18 14 15 24 C12 33 14 42 16 50 C18 60 19 72 22 80 C23 84 26 86 29 85 C32 84 33 78 34 72 C35 66 36 62 40 62 C44 62 45 66 46 72 C47 78 48 84 51 85 C54 86 57 84 58 80 C61 72 62 60 64 50 C66 42 68 33 65 24 C62 14 52 8 40 8Z"/>
     </svg>
   </div>
@@ -1083,7 +1235,7 @@ footer{
       <div class="legacy-text">
         <div class="section-tag reveal">Our Legacy</div>
         <h2 class="legacy-h2 reveal reveal-delay-1">A Heritage of<br><em>Exceptional</em> Smiles</h2>
-        <p class="legacy-p reveal reveal-delay-2">Founded in 1971 by the late Dr. Yusuf Unwala, our practice has been a cornerstone of dental care in Bhindi Bazaar for over five decades. Built on a foundation of trust, compassion, and clinical excellence.</p>
+        <p class="legacy-p reveal reveal-delay-2">Founded in 1971 by Dr. Yusuf Unwala, our practice has been a cornerstone of dental care in Bhindi Bazaar for over five decades. Built on a foundation of trust, compassion, and clinical excellence.</p>
         <p class="legacy-p reveal reveal-delay-3">Today, Dr. Ummulkiram Unwala carries this legacy forward. A graduate of YMT Dental College, Mumbai, she went on to earn a Postgraduate Diploma in Restorative Dentistry from Newcastle University, UK — bringing world-class clinical training and a warmly personal approach to every patient.</p>
         <blockquote class="legacy-quote reveal reveal-delay-2">
           "We take the time to understand each patient's needs and deliver care that feels personal — because it is."
@@ -1505,6 +1657,137 @@ footer{
 </section>
 </div><!-- end pricing page -->
 
+<!-- ═══════════════════════════════════════ ABOUT PAGE -->
+<div id="page-about" class="page-section">
+
+<section class="about-hero-section">
+  <div class="container" style="text-align:center">
+    <div class="section-tag" style="color:var(--blush);justify-content:center">Meet the Doctor</div>
+    <h1 class="section-title" style="color:white;margin-bottom:16px">About Dr. Unwala</h1>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto">Expertise rooted in tradition. Care driven by compassion.</p>
+  </div>
+</section>
+
+<section class="about-main">
+  <div class="container">
+    <div class="about-grid">
+
+      <!-- Photo column -->
+      <div class="about-photo-col reveal">
+        <div class="about-photo-frame">
+          <img src="founder.png" alt="Dr. Ummulkiram Unwala — BDS, PG Dip. Restorative Dentistry" loading="lazy">
+        </div>
+        <div class="about-photo-caption">
+          <div class="name">Dr. Ummulkiram Unwala</div>
+          <div class="creds">BDS, YMT Dental College, Mumbai<br>PG Dip. Restorative Dentistry, Newcastle University, UK</div>
+        </div>
+      </div>
+
+      <!-- Text column -->
+      <div class="about-text-col">
+
+        <div class="section-tag reveal">Her Story</div>
+        <h2 class="about-h2 reveal reveal-delay-1">Dentistry Was Always<br><em>In Her Blood</em></h2>
+
+        <p class="about-p reveal reveal-delay-2">Dr. Ummulkiram Unwala grew up watching her grandfather, Dr. Yusuf Unwala, transform the lives of patients one smile at a time. His clinic at Bhindi Bazaar was — and remains — a place where patients felt genuinely cared for, not just treated. From a young age, she knew she wanted to carry that same spirit forward.</p>
+
+        <p class="about-p reveal reveal-delay-3">After completing her BDS at YMT Dental College, Mumbai, Dr. Ummulkiram went on to pursue a Postgraduate Diploma in Restorative Dentistry at Newcastle University, UK — gaining hands-on training in complex tooth restoration, smile rehabilitation, and aesthetic dentistry at one of Europe's leading dental schools.</p>
+
+        <p class="about-p reveal reveal-delay-3">She returned to Mumbai with a broader clinical perspective and a deeper commitment to the values her grandfather instilled: patience, honesty, and care that never feels rushed. Dr. Yusuf continues to be a presence at the clinic — offering guidance and the wisdom of over five decades in practice — while Dr. Ummulkiram leads the day-to-day clinical work.</p>
+
+        <blockquote class="about-quote reveal reveal-delay-2">
+          "Every patient walks in with a story. I take the time to listen before I ever pick up an instrument."
+        </blockquote>
+
+        <!-- Credentials grid -->
+        <div class="about-credentials reveal reveal-delay-2">
+          <div class="cred-item">
+            <div class="cred-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+            </div>
+            <div>
+              <div class="cred-label">Undergraduate Degree</div>
+              <div class="cred-val">BDS — YMT Dental College, Mumbai</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+            </div>
+            <div>
+              <div class="cred-label">Postgraduate Diploma</div>
+              <div class="cred-val">Restorative Dentistry — Newcastle University, UK</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div>
+              <div class="cred-label">Specialisation</div>
+              <div class="cred-val">Certified Invisalign Provider · Restorative & Cosmetic Dentistry</div>
+            </div>
+          </div>
+          <div class="cred-item">
+            <div class="cred-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div class="cred-label">Practice</div>
+              <div class="cred-val">Dr. Unwala's Dental Clinic — Est. 1971, Bhindi Bazaar, Mumbai</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Philosophy / values -->
+        <div class="section-tag reveal" style="margin-top:48px">Her Approach</div>
+        <h3 class="about-h2 reveal reveal-delay-1" style="font-size:1.6rem;margin-bottom:24px">How She Practises <em>Dentistry</em></h3>
+
+        <div class="about-values reveal reveal-delay-2">
+          <div class="value-item">
+            <div class="value-num">01</div>
+            <div>
+              <div class="value-title">Listen First, Treat Second</div>
+              <div class="value-desc">Every appointment begins with a proper conversation — understanding your concerns, your history, and your goals before any clinical work begins.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-num">02</div>
+            <div>
+              <div class="value-title">Honest, Pressure-Free Advice</div>
+              <div class="value-desc">You'll never be pushed into a treatment you don't need. Dr. Ummulkiram presents all your options clearly and lets you decide what's right for you, in your own time.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-num">03</div>
+            <div>
+              <div class="value-title">Gentle Hands, Modern Techniques</div>
+              <div class="value-desc">Anxiety is common — and respected here. She uses the latest minimally invasive techniques to make every procedure as comfortable as possible, for patients of all ages.</div>
+            </div>
+          </div>
+          <div class="value-item">
+            <div class="value-num">04</div>
+            <div>
+              <div class="value-title">Long-Term Relationships</div>
+              <div class="value-desc">Many of her patients are families she's known for years. She keeps detailed records, remembers your preferences, and treats you as a person — not just a case file.</div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:48px" class="reveal reveal-delay-3">
+          <a href="https://wa.me/918369786201" target="_blank" class="btn-primary">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Book a Consultation
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</div><!-- end about page -->
+
 <!-- ═══════════════════════════════════════ FAQ PAGE -->
 <div id="page-faq" class="page-section">
 <section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:160px 0 100px">
@@ -1710,7 +1993,7 @@ footer{
   </svg>
 </a>
 
-<!-- ═══════════════════════════════════════ FOOTER (shown on all pages) -->
+<!-- ═══════════════════════════════════════ FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -1747,7 +2030,6 @@ function showPage(name) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
   window.scrollTo({top:0,behavior:'smooth'});
-  // Re-trigger reveals for the new page
   setTimeout(initReveal, 100);
   return false;
 }
@@ -1785,7 +2067,6 @@ document.addEventListener('DOMContentLoaded', initReveal);
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
   const isOpen = answer.classList.contains('open');
-  // Close all
   document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
   document.querySelectorAll('.faq-q.open').forEach(q => q.classList.remove('open'));
   if(!isOpen) {
@@ -1795,7 +2076,6 @@ function toggleFaq(btn) {
 }
 
 // ── SMOOTH NAV HIGHLIGHT ─────────────────
-// Make nav links active based on current page
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', function(){
     document.querySelectorAll('.nav-links a').forEach(x => x.style.color='');
