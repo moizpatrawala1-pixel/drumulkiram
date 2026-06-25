@@ -14,7 +14,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&display=swap" rel="stylesheet">
 
 <style>
-/* ── RESET & BASE ────────────────────────────────────────────── */
 *,*::before,*::after{
   box-sizing:border-box;margin:0;padding:0;
   -webkit-tap-highlight-color:transparent;
@@ -47,19 +46,11 @@ body{
 a{text-decoration:none;color:inherit}
 img{display:block;max-width:100%;height:auto}
 button{border:none;background:none;cursor:pointer;font-family:inherit}
-
-/* Prevent iOS auto-zoom on input focus */
 input,select,textarea{font-size:16px !important}
-
-/* Minimum tap targets */
 a,button{touch-action:manipulation}
-
-/* ── SCROLLBAR ───────────────────────────────────────────────── */
 ::-webkit-scrollbar{width:4px}
 ::-webkit-scrollbar-track{background:var(--pearl)}
 ::-webkit-scrollbar-thumb{background:var(--rose);border-radius:2px}
-
-/* ── LOADER ──────────────────────────────────────────────────── */
 #loader{
   position:fixed;inset:0;z-index:9999;
   background:var(--white);
@@ -102,8 +93,6 @@ a,button{touch-action:manipulation}
   animation:progress-bar 1.5s cubic-bezier(.4,0,.2,1) 1.5s forwards;
 }
 @keyframes progress-bar{to{width:100%}}
-
-/* ── NAV ─────────────────────────────────────────────────────── */
 nav{
   position:fixed;top:0;left:0;right:0;z-index:100;
   padding:20px 48px;
@@ -183,8 +172,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   display:flex;align-items:center;justify-content:center;
   font-size:1.5rem;color:var(--ink);
 }
-
-/* ── HERO ────────────────────────────────────────────────────── */
 #hero{
   position:relative;height:100vh;min-height:600px;
   display:flex;align-items:center;
@@ -329,8 +316,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   animation:scroll-pulse 2s ease-in-out infinite;
 }
 @keyframes scroll-pulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
-
-/* ── LEGACY SECTION ──────────────────────────────────────────── */
 #legacy{background:var(--white);padding:var(--section-pad) 0}
 .container{max-width:1400px;margin:0 auto;padding:0 48px}
 .section-tag{
@@ -374,8 +359,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
 .detail-icon svg{width:18px;height:18px;color:var(--rose)}
 .detail-label{font-size:0.72rem;color:#888;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:2px}
 .detail-val{font-size:0.92rem;font-weight:600;color:var(--ink)}
-
-/* ── SERVICES ────────────────────────────────────────────────── */
 #services{background:var(--pearl);padding:var(--section-pad) 0}
 .services-header{text-align:center;max-width:640px;margin:0 auto 72px}
 .section-title{
@@ -410,8 +393,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   display:flex;align-items:center;justify-content:center;transition:all 0.3s;
 }
 .service-card:hover .service-arrow{background:var(--rose);color:var(--white)}
-
-/* ── BEFORE & AFTER ──────────────────────────────────────────── */
 #transformations{background:var(--white);padding:var(--section-pad) 0}
 .ba-header{text-align:center;margin-bottom:72px}
 .ba-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1100px;margin:0 auto}
@@ -431,8 +412,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
 .ba-caption{padding:20px 24px 24px;background:var(--white)}
 .ba-caption-title{font-family:'Playfair Display',serif;font-size:1rem;font-weight:500;color:var(--ink);margin-bottom:4px}
 .ba-caption-sub{font-size:0.8rem;color:#888;line-height:1.5}
-
-/* ── TESTIMONIALS ────────────────────────────────────────────── */
 #testimonials{
   background:linear-gradient(135deg,#1a0812,#3d1027,#6b1a3e);
   padding:var(--section-pad) 0;overflow:hidden;position:relative;
@@ -474,8 +453,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
 }
 .testi-name{font-weight:600;font-size:0.88rem;color:var(--white)}
 .testi-loc{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:2px}
-
-/* ── PRICING ─────────────────────────────────────────────────── */
 #pricing{background:var(--pearl);padding:var(--section-pad) 0}
 .pricing-header{text-align:center;margin-bottom:72px}
 .pricing-note{
@@ -523,8 +500,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   text-align:center;font-size:0.78rem;color:#aaa;
   margin-top:40px;max-width:600px;margin-left:auto;margin-right:auto;
 }
-
-/* ── FAQ ─────────────────────────────────────────────────────── */
 #faq{background:var(--white);padding:var(--section-pad) 0}
 .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start}
 .faq-left .section-title{margin-bottom:20px}
@@ -548,8 +523,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
 .faq-q.open .faq-icon{transform:rotate(45deg);background:var(--rose);border-color:var(--rose);color:var(--white)}
 .faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;font-size:0.88rem;line-height:1.75;color:#666}
 .faq-a.open{max-height:300px;padding-bottom:20px}
-
-/* ── CONTACT ─────────────────────────────────────────────────── */
 #contact{
   background:linear-gradient(135deg,#1a0812,#3d1027);
   padding:var(--section-pad) 0;position:relative;overflow:hidden;
@@ -583,7 +556,7 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   border:1px solid rgba(255,255,255,0.12);
   border-radius:12px;color:var(--white);
   font-family:'DM Sans',sans-serif;
-  font-size:16px !important; /* prevents iOS zoom */
+  font-size:16px !important;
   transition:border-color 0.3s,background 0.3s;outline:none;
   -webkit-appearance:none;appearance:none;
 }
@@ -615,8 +588,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
 }
 .social-link:hover{background:var(--rose);border-color:var(--rose);color:var(--white)}
 .social-link svg{width:18px;height:18px}
-
-/* ── WHATSAPP FLOAT ──────────────────────────────────────────── */
 .wa-float{
   position:fixed;bottom:28px;right:28px;z-index:200;
   width:58px;height:58px;background:#25D366;border-radius:50%;
@@ -631,8 +602,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.4)}
   50%{box-shadow:0 8px 32px rgba(37,211,102,0.6),0 0 0 8px rgba(37,211,102,0.1)}
 }
-
-/* ── MOBILE STICKY BOOK BAR ──────────────────────────────────── */
 .mobile-book-bar{
   display:none;
   position:fixed;bottom:0;left:0;right:0;z-index:150;
@@ -647,8 +616,6 @@ nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
   font-size:0.95rem;font-weight:600;letter-spacing:0.03em;
   text-decoration:none;min-height:44px;
 }
-
-/* ── FOOTER ──────────────────────────────────────────────────── */
 footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
 .footer-inner{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:20px}
 .footer-brand{font-family:'Playfair Display',serif;font-size:1rem;color:rgba(255,255,255,0.7)}
@@ -660,16 +627,12 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
 .footer-craft{font-size:0.72rem;color:rgba(255,255,255,0.35)}
 .footer-craft a{color:var(--blush);transition:color 0.3s}
 .footer-craft a:hover{color:var(--rose)}
-
-/* ── SCROLL REVEAL ───────────────────────────────────────────── */
 .reveal{opacity:0;transform:translateY(28px);transition:opacity 0.7s ease,transform 0.7s ease}
 .reveal.visible{opacity:1;transform:translateY(0)}
 .reveal-delay-1{transition-delay:0.1s}
 .reveal-delay-2{transition-delay:0.2s}
 .reveal-delay-3{transition-delay:0.3s}
 .reveal-delay-4{transition-delay:0.4s}
-
-/* ── ABOUT PAGE ──────────────────────────────────────────────── */
 .about-hero-section{background:linear-gradient(135deg,#1a0812,#3d1027);padding:160px 0 100px}
 .about-main{background:var(--white);padding:100px 0}
 .about-grid{display:grid;grid-template-columns:420px 1fr;gap:80px;align-items:start}
@@ -717,15 +680,9 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
 }
 .value-title{font-size:0.88rem;font-weight:600;color:var(--ink);margin-bottom:4px}
 .value-desc{font-size:0.83rem;color:#777;line-height:1.6}
-
-/* ── PAGE SECTIONS ───────────────────────────────────────────── */
 .page-section{display:none}
 .page-section.active{display:block}
 #hero{display:flex}
-
-/* ════════════════════════════════════════════════════════════════
-   RESPONSIVE — TABLET (≤1024px)
-   ═══════════════════════════════════════════════════════════════ */
 @media(max-width:1024px){
   :root{--section-pad:80px}
   .hero-content{grid-template-columns:1fr;gap:60px;text-align:center}
@@ -741,7 +698,7 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   nav{padding:16px 24px}
   nav.scrolled{padding:12px 24px}
   .nav-links{display:none}
-  .nav-cta{display:none} /* hamburger replaces this */
+  .nav-cta{display:none}
   .hamburger{display:flex;color:white}
   nav.scrolled .hamburger{color:var(--ink)}
   .container{padding:0 24px}
@@ -750,92 +707,87 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   .about-photo-col{position:static;max-width:320px;margin:0 auto}
   .about-credentials{grid-template-columns:1fr}
 }
-
-/* ════════════════════════════════════════════════════════════════
-   RESPONSIVE — MOBILE (≤640px) — PRIMARY TARGET
-   ═══════════════════════════════════════════════════════════════ */
 @media(max-width:640px){
   :root{--section-pad:56px}
-
-  /* Container */
   .container{padding:0 16px}
   .hero-content{padding:0 16px}
-
-  /* Testimonials track edges */
   .testimonials-track{padding:0 16px 24px}
-
-  /* Hero text */
   .hero-h1{font-size:clamp(1.9rem,8.5vw,2.6rem)}
   .hero-sub{font-size:0.9rem;margin-bottom:32px}
   .hero-eyebrow{font-size:0.63rem;margin-bottom:20px}
   .hero-scroll{display:none}
-
-  /* Hero buttons — stack on mobile */
   .hero-actions{flex-direction:column;gap:12px}
   .hero-actions .btn-primary,
   .hero-actions .btn-secondary{width:100%;justify-content:center;padding:15px 24px}
-
-  /* Hero stats */
   .hero-stats{
     display:grid;grid-template-columns:1fr 1fr;
     gap:16px 24px;padding-top:24px;margin-top:28px;
   }
   .stat-num{font-size:2rem}
   .stat-label{font-size:0.68rem}
-
-  /* Section titles */
   .section-title{font-size:clamp(1.6rem,7.5vw,2.2rem)}
   .legacy-h2{font-size:clamp(1.6rem,7.5vw,2.2rem)}
   .about-h2{font-size:clamp(1.4rem,6.5vw,1.9rem)}
-
-  /* Quotes */
   .legacy-quote{font-size:1.15rem;padding-left:16px}
   .about-quote{font-size:1.1rem;padding-left:16px}
 
-  /* Cards */
-  .service-card{padding:24px 20px}
-  .pricing-card{padding:24px 20px}
+  /* ── CARDS — Services & Pricing fix ─────────────────────────
+     Problem: on mobile, cards already stack to one column, but the
+     INNER spacing (icon, name, list rows, button) stayed close to
+     desktop sizing, so the page read as cramped even though each
+     individual rule looked fine in isolation. Fix = loosen the
+     internal rhythm of each card and guarantee a real gap between
+     stacked cards. */
+  .service-card{padding:26px 22px}
+  .pricing-card{padding:30px 24px}
   .pricing-card.featured{overflow:hidden}
 
-  /* Services grid */
-  .services-grid{grid-template-columns:1fr}
+  .pricing-icon{width:46px;height:46px;margin-bottom:18px}
+  .pricing-icon svg{width:19px;height:19px}
+  .pricing-name{font-size:1.08rem;margin-bottom:14px;line-height:1.3}
+  .pricing-range{font-size:1.45rem;margin-bottom:6px}
+  .pricing-est{margin-bottom:22px}
+  .pricing-list{margin-bottom:26px}
+  .pricing-list li{
+    padding:12px 0;font-size:0.85rem;line-height:1.55;gap:10px;
+  }
+  .pricing-cta{font-size:0.82rem;padding:14px}
+
+  .service-icon{width:50px;height:50px;margin-bottom:18px}
+  .service-icon svg{width:21px;height:21px}
+  .service-name{font-size:1.08rem;margin-bottom:10px}
+  .service-desc{font-size:0.86rem;line-height:1.65}
+
+  /* Guarantee real breathing room between stacked cards everywhere
+     the .pricing-grid / .services-grid pattern is used */
+  .pricing-grid,
+  .services-grid{
+    grid-template-columns:1fr;
+    gap:22px;
+  }
+
+  /* Shrink + reposition the "Most Popular" ribbon so it doesn't
+     feel oversized on a narrower card */
+  .pricing-card.featured::before{
+    top:16px;right:-32px;font-size:0.6rem;padding:3px 38px;
+  }
 
   /* Form */
   .form-row{grid-template-columns:1fr}
   .contact-card{padding:24px 18px;border-radius:16px}
-
-  /* Testi cards */
   .testi-card{flex:0 0 82vw;padding:24px 20px}
-
-  /* FAQ */
   .faq-q{font-size:0.88rem;padding:20px 0}
   .faq-contact-box{padding:20px 18px}
-
-  /* Legacy detail */
   .legacy-detail{flex-direction:column;gap:16px}
-
-  /* About */
   .about-photo-col{max-width:260px}
   .about-credentials{padding:20px 16px}
   .value-item{padding:14px 16px}
-
-  /* Footer */
   .footer-inner{flex-direction:column;text-align:center;gap:12px}
   footer{padding:36px 0}
-
-  /* WhatsApp float lifted above sticky bar */
   .wa-float{bottom:80px;right:16px;width:52px;height:52px}
-
-  /* Sticky book bar */
   .mobile-book-bar{display:block}
-
-  /* Body padding for sticky bar */
   body{padding-bottom:calc(56px + env(safe-area-inset-bottom))}
 }
-
-/* ════════════════════════════════════════════════════════════════
-   RESPONSIVE — SMALL PHONE (≤420px)
-   ═══════════════════════════════════════════════════════════════ */
 @media(max-width:420px){
   .hero-h1{font-size:clamp(1.7rem,9vw,2.1rem)}
   .pricing-range{font-size:1.3rem}
@@ -843,9 +795,9 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   .ba-label-row{padding:10px 14px}
   .testi-card{flex:0 0 88vw}
   .social-links{flex-wrap:wrap;gap:10px}
+  .pricing-card{padding:26px 20px}
+  .service-card{padding:22px 18px}
 }
-
-/* ── SAFE AREA SUPPORT (NOTCH / HOME BAR) ───────────────────── */
 @supports(padding-bottom: env(safe-area-inset-bottom)){
   .mobile-book-bar{padding-bottom:calc(12px + env(safe-area-inset-bottom))}
 }
@@ -853,7 +805,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════ LOADER -->
 <div id="loader">
   <div class="loader-tooth">
     <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
@@ -867,7 +818,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
 </div>
 
-<!-- ═══════════════════════════════════════ NAVIGATION -->
 <nav id="navbar">
   <a href="#" onclick="showPage('home')" class="nav-logo">
     Dr. Unwala's
@@ -886,7 +836,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </nav>
 
-<!-- Mobile Menu -->
 <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true">
   <button class="mobile-close-btn" onclick="toggleMenu()" aria-label="Close menu">✕</button>
   <a href="#" onclick="showPage('home');toggleMenu()">Home</a>
@@ -900,7 +849,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </a>
 </div>
 
-<!-- ═══════════════════════════════════════ MOBILE STICKY BOOK BAR -->
 <div class="mobile-book-bar">
   <a href="https://wa.me/918369786201" target="_blank">
     <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -908,10 +856,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </a>
 </div>
 
-<!-- ═══════════════════════════════════════ HOME PAGE -->
 <div id="page-home" class="page-section active">
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-orbs">
     <div class="orb orb1"></div>
@@ -967,7 +913,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </section>
 
-<!-- LEGACY -->
 <section id="legacy">
   <div class="container">
     <div class="legacy-grid">
@@ -1016,7 +961,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </section>
 
-<!-- TRANSFORMATIONS -->
 <section id="transformations">
   <div class="container">
     <div class="ba-header">
@@ -1081,7 +1025,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section id="testimonials">
   <div class="orb" style="width:500px;height:500px;background:var(--blush);top:-100px;right:-100px"></div>
   <div class="orb" style="width:300px;height:300px;background:var(--lavender);bottom:-50px;left:-50px"></div>
@@ -1149,7 +1092,6 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </section>
 
-<!-- HOME CTA STRIP -->
 <section style="background:linear-gradient(90deg,var(--rose),var(--rose-dark));padding:64px 0">
   <div class="container" style="text-align:center">
     <h2 style="font-family:'Playfair Display',serif;font-size:clamp(1.5rem,5vw,2rem);color:white;margin-bottom:12px;font-weight:500">Ready for a smile you're proud of?</h2>
@@ -1164,9 +1106,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </section>
 
-</div><!-- end home page -->
+</div>
 
-<!-- ═══════════════════════════════════════ SERVICES PAGE -->
 <div id="page-services" class="page-section">
 <section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:140px 0 80px;margin-top:0">
   <div class="container" style="text-align:center">
@@ -1331,9 +1272,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </section>
-</div><!-- end services page -->
+</div>
 
-<!-- ═══════════════════════════════════════ PRICING PAGE -->
 <div id="page-pricing" class="page-section">
 <section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:140px 0 80px">
   <div class="container" style="text-align:center">
@@ -1396,9 +1336,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </section>
-</div><!-- end pricing page -->
+</div>
 
-<!-- ═══════════════════════════════════════ ABOUT PAGE -->
 <div id="page-about" class="page-section">
 <section class="about-hero-section">
   <div class="container" style="text-align:center">
@@ -1501,9 +1440,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </section>
-</div><!-- end about page -->
+</div>
 
-<!-- ═══════════════════════════════════════ FAQ PAGE -->
 <div id="page-faq" class="page-section">
 <section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:140px 0 80px">
   <div class="container" style="text-align:center">
@@ -1560,9 +1498,8 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </section>
-</div><!-- end faq page -->
+</div>
 
-<!-- ═══════════════════════════════════════ CONTACT PAGE -->
 <div id="page-contact" class="page-section">
 <section id="contact" style="padding-top:120px">
   <div class="orb" style="width:600px;height:600px;background:var(--blush);top:-100px;right:-200px"></div>
@@ -1670,16 +1607,14 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
     </div>
   </div>
 </section>
-</div><!-- end contact page -->
+</div>
 
-<!-- ═══════════════════════════════════════ WHATSAPP FLOAT -->
 <a href="https://wa.me/918369786201" class="wa-float" target="_blank" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
   <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
 </a>
 
-<!-- ═══════════════════════════════════════ FOOTER -->
 <footer>
   <div class="container">
     <div class="footer-inner">
@@ -1693,22 +1628,18 @@ footer{background:#0f0508;padding:48px 0;color:rgba(255,255,255,0.45)}
   </div>
 </footer>
 
-<!-- ═══════════════════════════════════════ JAVASCRIPT -->
 <script>
-// ── LOADER ──────────────────────────────
 window.addEventListener('load', () => {
   setTimeout(() => {
     document.getElementById('loader').classList.add('fade-out');
   }, 3200);
 });
 
-// ── NAVBAR SCROLL ────────────────────────
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 40);
 }, {passive:true});
 
-// ── PAGE NAVIGATION ───────────────────────
 function showPage(name) {
   document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
   document.getElementById('page-'+name).classList.add('active');
@@ -1717,7 +1648,6 @@ function showPage(name) {
   return false;
 }
 
-// ── MOBILE MENU ──────────────────────────
 function toggleMenu() {
   const menu = document.getElementById('mobileMenu');
   const ham = document.getElementById('hamburger');
@@ -1731,14 +1661,12 @@ function toggleMenu() {
   }
 }
 
-// Close mobile menu on Escape
 document.addEventListener('keydown', e => {
   if(e.key === 'Escape') {
     document.getElementById('mobileMenu').classList.remove('open');
   }
 });
 
-// ── SCROLL REVEAL ────────────────────────
 function initReveal() {
   const reveals = document.querySelectorAll('.page-section.active .reveal:not(.visible)');
   const observer = new IntersectionObserver((entries) => {
@@ -1753,7 +1681,6 @@ function initReveal() {
 }
 document.addEventListener('DOMContentLoaded', initReveal);
 
-// ── FAQ ACCORDION ────────────────────────
 function toggleFaq(btn) {
   const answer = btn.nextElementSibling;
   const isOpen = answer.classList.contains('open');
@@ -1765,7 +1692,6 @@ function toggleFaq(btn) {
   }
 }
 
-// ── SMOOTH NAV HIGHLIGHT ─────────────────
 document.querySelectorAll('.nav-links a').forEach(a => {
   a.addEventListener('click', function(){
     document.querySelectorAll('.nav-links a').forEach(x => x.style.color='');
@@ -1773,7 +1699,6 @@ document.querySelectorAll('.nav-links a').forEach(a => {
   });
 });
 
-// ── TESTIMONIALS DRAG SCROLL ─────────────
 const track = document.querySelector('.testimonials-track');
 if(track) {
   let isDown=false,startX,scrollLeft;
@@ -1791,7 +1716,6 @@ if(track) {
   });
 }
 
-// ── CONTACT FORM → WHATSAPP ──────────────
 document.getElementById('waSubmit')?.addEventListener('click', function(e) {
   e.preventDefault();
   const inputs = document.querySelectorAll('#page-contact .form-input');
