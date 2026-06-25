@@ -1,1822 +1,1837 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dr. Unwala's Dental Clinic | Expert Dental Care in Mumbai</title>
-  <meta name="description" content="Dr. Ummulkiram Unwala – internationally trained dentist in Bhindi Bazaar, Mumbai. Offering general dentistry, implants, Invisalign, orthodontics & full mouth rehabilitation.">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-  <style>
-    :root {
-      --rose: #F4A4C0;
-      --rose-light: #fce8f1;
-      --lavender: #EFCAFF;
-      --lavender-light: #f9f0ff;
-      --grey-light: #EBEBEB;
-      --crimson: #C73E67;
-      --crimson-dark: #a02e52;
-      --white: #FFFFFF;
-      --off-white: #fafafa;
-      --dark: #1c1c1c;
-      --text: #2d2d2d;
-      --muted: #888;
-      --border: #e8e8e8;
-    }
-
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    html { scroll-behavior: smooth; font-size: 16px; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      overflow-x: hidden;
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-      }
-    }
-
-    a:focus-visible, button:focus-visible {
-      outline: 2px solid var(--crimson);
-      outline-offset: 2px;
-    }
-
-    /* ─── LOADING SCREEN ─── */
-    #loader {
-      position: fixed;
-      inset: 0;
-      background: var(--white);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      transition: opacity 0.5s ease, visibility 0.5s ease;
-      /* CSS-only safety net: fades itself out even if JS never runs */
-      animation: loaderAutoHide 0.01s linear 1.6s forwards;
-    }
-    #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-    @keyframes loaderAutoHide {
-      to { opacity: 0; visibility: hidden; pointer-events: none; }
-    }
-
-    .tooth-svg { width: 60px; height: 68px; margin-bottom: 16px; }
-
-    .tooth-path {
-      fill: none;
-      stroke: var(--crimson);
-      stroke-width: 2.2;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      stroke-dasharray: 340;
-      stroke-dashoffset: 340;
-      animation: drawTooth 0.7s cubic-bezier(0.4,0,0.2,1) 0.1s forwards;
-    }
-
-    @keyframes drawTooth { to { stroke-dashoffset: 0; } }
-
-    .loader-fill {
-      fill: var(--rose-light);
-      opacity: 0;
-      animation: fillTooth 0.3s ease 0.65s forwards;
-    }
-
-    @keyframes fillTooth { to { opacity: 1; } }
-
-    .loader-name {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 300;
-      letter-spacing: 0.25em;
-      color: var(--dark);
-      opacity: 0;
-      animation: fadeIn 0.4s ease 0.7s forwards;
-    }
-
-    @keyframes fadeIn { to { opacity: 1; } }
-
-    /* ─── PAGE TRANSITION ─── */
-    #page-root {
-      opacity: 0;
-      animation: pageIn 0.45s ease forwards;
-    }
-    @keyframes pageIn { to { opacity: 1; } }
-
-    /* ─── NAV ─── */
-    nav {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 100;
-      padding: 0 40px;
-      height: 68px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid transparent;
-      transition: border-color 0.3s;
-    }
-
-    nav.scrolled { border-color: var(--border); }
-
-    .nav-logo {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      font-weight: 500;
-      color: var(--dark);
-      text-decoration: none;
-      letter-spacing: 0.03em;
-      cursor: pointer;
-    }
-
-    .nav-logo span { color: var(--crimson); }
-
-    .nav-links {
-      display: flex;
-      gap: 32px;
-      list-style: none;
-    }
-
-    .nav-links a {
-      font-size: 0.78rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--text);
-      text-decoration: none;
-      transition: color 0.2s;
-      cursor: pointer;
-      position: relative;
-      padding-bottom: 4px;
-    }
-
-    .nav-links a:hover { color: var(--crimson); }
-
-    .nav-links a.active { color: var(--crimson); }
-    .nav-links a.active::after {
-      content: '';
-      position: absolute;
-      left: 0; right: 0; bottom: -2px;
-      height: 2px;
-      background: var(--crimson);
-      border-radius: 2px;
-    }
-
-    .nav-cta {
-      background: var(--crimson);
-      color: var(--white) !important;
-      padding: 10px 22px;
-      border-radius: 3px;
-      transition: background 0.2s !important;
-    }
-
-    .nav-cta:hover { background: var(--crimson-dark) !important; color: var(--white) !important; }
-    .nav-cta.active { color: var(--white) !important; }
-    .nav-cta.active::after { display: none; }
-
-    .nav-toggle {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      border: none;
-      background: none;
-      padding: 4px;
-    }
-
-    .nav-toggle span {
-      display: block;
-      width: 24px;
-      height: 1.5px;
-      background: var(--dark);
-      transition: 0.3s;
-    }
-
-    /* ─── PAGE HEADER (sub-pages) ─── */
-    .page-header {
-      padding: 160px 80px 70px;
-      background: linear-gradient(135deg, var(--white) 0%, var(--rose-light) 100%);
-      text-align: center;
-    }
-
-    .breadcrumb {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .breadcrumb a { color: var(--muted); text-decoration: none; cursor: pointer; }
-    .breadcrumb a:hover { color: var(--crimson); }
-    .breadcrumb .sep { margin: 0 8px; color: #ccc; }
-    .breadcrumb .current { color: var(--crimson); }
-
-    .page-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.4rem, 4vw, 3.6rem);
-      font-weight: 300;
-      color: var(--dark);
-      margin-bottom: 16px;
-    }
-
-    .page-sub {
-      font-size: 0.95rem;
-      color: #666;
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.7;
-    }
-
-    /* ─── HERO (home only) ─── */
-    #home-hero {
-      min-height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      padding-top: 68px;
-    }
-
-    .hero-left {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding: 80px 60px 80px 80px;
-      background: linear-gradient(135deg, var(--white) 0%, var(--rose-light) 100%);
-    }
-
-    .hero-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      margin-bottom: 20px;
-    }
-
-    .hero-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 4vw, 4.2rem);
-      font-weight: 300;
-      line-height: 1.12;
-      color: var(--dark);
-      margin-bottom: 24px;
-    }
-
-    .hero-title em { font-style: italic; color: var(--crimson); }
-
-    .hero-sub {
-      font-size: 0.95rem;
-      line-height: 1.75;
-      color: #555;
-      max-width: 420px;
-      margin-bottom: 40px;
-    }
-
-    .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-
-    .btn-primary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--crimson);
-      color: var(--white);
-      padding: 14px 28px;
-      border-radius: 3px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: background 0.2s, transform 0.2s;
-      border: none;
-      cursor: pointer;
-    }
-
-    .btn-primary:hover { background: var(--crimson-dark); transform: translateY(-1px); }
-
-    .btn-secondary {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: transparent;
-      color: var(--dark);
-      padding: 14px 28px;
-      border: 1.5px solid var(--border);
-      border-radius: 3px;
-      font-size: 0.82rem;
-      font-weight: 500;
-      letter-spacing: 0.06em;
-      text-decoration: none;
-      text-transform: uppercase;
-      transition: border-color 0.2s, color 0.2s;
-      cursor: pointer;
-    }
-
-    .btn-secondary:hover { border-color: var(--crimson); color: var(--crimson); }
-
-    .hero-stats { margin-top: 56px; display: flex; gap: 40px; }
-
-    .hero-stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem;
-      font-weight: 300;
-      color: var(--crimson);
-      line-height: 1;
-    }
-
-    .hero-stat-label { font-size: 0.75rem; color: var(--muted); letter-spacing: 0.05em; margin-top: 4px; }
-
-    .hero-right { position: relative; overflow: hidden; background: var(--grey-light); }
-
-    .hero-photo-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(160deg, var(--lavender-light) 0%, var(--rose-light) 100%);
-    }
-
-    .photo-placeholder-icon {
-      width: 64px;
-      height: 64px;
-      border-radius: 50%;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-      box-shadow: 0 4px 20px rgba(199,62,103,0.12);
-    }
-
-    .photo-placeholder-icon svg { width: 28px; height: 28px; }
-
-    .photo-placeholder-text { font-size: 0.8rem; color: var(--muted); letter-spacing: 0.05em; text-align: center; }
-
-    .hero-badge {
-      position: absolute;
-      bottom: 40px;
-      left: 40px;
-      background: var(--white);
-      border-radius: 6px;
-      padding: 14px 20px;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .badge-dot {
-      width: 10px;
-      height: 10px;
-      background: #22c55e;
-      border-radius: 50%;
-      flex-shrink: 0;
-      animation: pulse-dot 2s infinite;
-    }
-
-    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
-
-    .badge-text { font-size: 0.78rem; color: var(--text); font-weight: 500; }
-    .badge-sub { font-size: 0.7rem; color: var(--muted); margin-top: 2px; }
-
-    /* ─── HOME: quick-links to other pages ─── */
-    #home-nav-cards {
-      padding: 90px 80px;
-      background: var(--white);
-    }
-
-    .nav-cards-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin-top: 48px;
-    }
-
-    .nav-card {
-      background: var(--off-white);
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 28px 24px;
-      text-decoration: none;
-      color: var(--text);
-      cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
-      display: block;
-    }
-
-    .nav-card:hover {
-      border-color: var(--rose);
-      background: var(--rose-light);
-      transform: translateY(-2px);
-    }
-
-    .nav-card-icon {
-      width: 38px;
-      height: 38px;
-      border-radius: 8px;
-      background: var(--rose-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 14px;
-    }
-
-    .nav-card:hover .nav-card-icon { background: var(--white); }
-
-    .nav-card-icon svg { width: 19px; height: 19px; color: var(--crimson); }
-
-    .nav-card-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.15rem;
-      font-weight: 500;
-      color: var(--dark);
-      margin-bottom: 6px;
-    }
-
-    .nav-card-desc { font-size: 0.78rem; line-height: 1.55; color: #777; }
-
-    /* ─── ABOUT teaser (home) ─── */
-    #about-teaser {
-      padding: 90px 80px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 80px;
-      align-items: center;
-      background: var(--off-white);
-    }
-
-    .section-eyebrow {
-      font-size: 0.72rem;
-      font-weight: 500;
-      letter-spacing: 0.2em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      margin-bottom: 16px;
-    }
-
-    .section-title {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 3vw, 3rem);
-      font-weight: 300;
-      line-height: 1.2;
-      color: var(--dark);
-      margin-bottom: 24px;
-    }
-
-    .section-body { font-size: 0.92rem; line-height: 1.85; color: #555; margin-bottom: 20px; }
-
-    .credentials { margin-top: 36px; display: flex; flex-direction: column; gap: 12px; }
-
-    .credential-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 14px;
-      padding: 16px 20px;
-      background: var(--white);
-      border-left: 3px solid var(--rose);
-      border-radius: 2px;
-    }
-
-    .credential-icon { width: 32px; height: 32px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-    .credential-icon svg { width: 18px; height: 18px; color: var(--crimson); }
-    .credential-degree { font-size: 0.85rem; font-weight: 600; color: var(--dark); margin-bottom: 2px; }
-    .credential-school { font-size: 0.78rem; color: var(--muted); }
-
-    .about-image-grid {
-      display: grid;
-      grid-template-rows: 1fr 1fr;
-      gap: 16px;
-      height: 480px;
-    }
-
-    .about-img-wrap { border-radius: 4px; overflow: hidden; background: var(--grey-light); position: relative; }
-
-    .img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--lavender-light) 0%, var(--rose-light) 100%);
-    }
-
-    .img-placeholder svg { width: 36px; height: 36px; color: #bbb; margin-bottom: 10px; }
-    .img-placeholder span { font-size: 0.75rem; color: var(--muted); text-align: center; padding: 0 20px; }
-
-    /* Full about page additions */
-    .timeline {
-      max-width: 640px;
-      margin: 56px auto 0;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
-    }
-
-    .timeline-item {
-      display: grid;
-      grid-template-columns: 90px 1fr;
-      gap: 24px;
-      padding-bottom: 36px;
-      position: relative;
-    }
-
-    .timeline-item::before {
-      content: '';
-      position: absolute;
-      left: 99px;
-      top: 28px;
-      bottom: -8px;
-      width: 1px;
-      background: var(--border);
-    }
-
-    .timeline-item:last-child::before { display: none; }
-
-    .timeline-year {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.3rem;
-      font-weight: 500;
-      color: var(--crimson);
-      text-align: right;
-      padding-top: 2px;
-    }
-
-    .timeline-dot {
-      display: none;
-    }
-
-    .timeline-content { padding-top: 2px; }
-
-    .timeline-content-title { font-size: 0.92rem; font-weight: 600; color: var(--dark); margin-bottom: 6px; }
-    .timeline-content-desc { font-size: 0.85rem; line-height: 1.7; color: #666; }
-
-    .values-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 24px;
-      margin-top: 16px;
-    }
-
-    .value-card {
-      text-align: center;
-      padding: 36px 24px;
-      background: var(--off-white);
-      border-radius: 6px;
-    }
-
-    .value-icon {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--rose-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 18px;
-    }
-
-    .value-icon svg { width: 22px; height: 22px; color: var(--crimson); }
-    .value-title { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 500; color: var(--dark); margin-bottom: 8px; }
-    .value-desc { font-size: 0.82rem; line-height: 1.65; color: #777; }
-
-    /* ─── SERVICES ─── */
-    #services-page { padding: 90px 80px 100px; background: var(--off-white); }
-
-    .section-header { text-align: center; margin-bottom: 60px; }
-
-    .services-grid-full {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-    }
-
-    .service-card-full {
-      background: var(--white);
-      border-radius: 6px;
-      padding: 36px;
-      border: 1px solid var(--border);
-      transition: border-color 0.2s, transform 0.2s;
-      display: flex;
-      gap: 20px;
-    }
-
-    .service-card-full:hover { border-color: var(--rose); transform: translateY(-2px); }
-
-    .service-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 8px;
-      background: var(--rose-light);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .service-icon svg { width: 24px; height: 24px; color: var(--crimson); }
-
-    .service-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 500; color: var(--dark); margin-bottom: 8px; }
-    .service-desc { font-size: 0.85rem; line-height: 1.7; color: #777; margin-bottom: 12px; }
-
-    .service-link {
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      text-decoration: none;
-      cursor: pointer;
-    }
-
-    .service-link:hover { text-decoration: underline; }
-
-    .services-cta-banner {
-      margin-top: 60px;
-      background: linear-gradient(135deg, var(--rose-light), var(--lavender-light));
-      border-radius: 8px;
-      padding: 48px;
-      text-align: center;
-    }
-
-    .services-cta-banner .section-title { margin-bottom: 12px; }
-    .services-cta-banner p { font-size: 0.88rem; color: #666; margin-bottom: 24px; }
-
-    /* ─── BEFORE / AFTER ─── */
-    #results-page { padding: 90px 80px 100px; background: var(--white); }
-
-    .ba-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-top: 16px; }
-
-    .ba-card { border-radius: 6px; overflow: hidden; border: 1px solid var(--border); }
-    .ba-images { display: grid; grid-template-columns: 1fr 1fr; }
-    .ba-slot { position: relative; height: 200px; background: var(--grey-light); overflow: hidden; }
-
-    .ba-label {
-      position: absolute;
-      top: 12px;
-      left: 12px;
-      background: rgba(0,0,0,0.6);
-      color: var(--white);
-      font-size: 0.65rem;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: 2px;
-    }
-
-    .ba-label.after { background: var(--crimson); }
-
-    .ba-caption { padding: 16px 20px; background: var(--white); }
-    .ba-caption-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 500; color: var(--dark); }
-    .ba-caption-desc { font-size: 0.78rem; color: var(--muted); margin-top: 4px; }
-
-    .ba-img-placeholder {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, var(--lavender-light), var(--rose-light));
-    }
-
-    .ba-img-placeholder span { font-size: 0.7rem; color: var(--muted); text-align: center; padding: 10px; }
-
-    .results-note {
-      max-width: 640px;
-      margin: 56px auto 0;
-      text-align: center;
-      font-size: 0.82rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
-    /* ─── PRICING ─── */
-    #pricing-page { padding: 90px 80px 100px; background: var(--off-white); }
-
-    .pricing-note { text-align: center; font-size: 0.82rem; color: var(--muted); margin-bottom: 48px; }
-
-    .pricing-table {
-      max-width: 760px;
-      margin: 0 auto;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-      background: var(--white);
-    }
-
-    .pricing-row {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      padding: 18px 28px;
-      border-bottom: 1px solid var(--border);
-      align-items: center;
-      transition: background 0.2s;
-    }
-
-    .pricing-row:last-child { border-bottom: none; }
-    .pricing-row:hover { background: var(--rose-light); }
-
-    .pricing-row.header {
-      background: var(--dark);
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--white);
-      cursor: default;
-    }
-
-    .pricing-row.header:hover { background: var(--dark); }
-
-    .pricing-service { font-size: 0.9rem; color: var(--text); }
-
-    .pricing-enquire {
-      display: inline-block;
-      font-size: 0.72rem;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--crimson);
-      text-decoration: none;
-      border: 1.5px solid var(--rose);
-      padding: 6px 14px;
-      border-radius: 3px;
-      white-space: nowrap;
-      transition: background 0.2s, color 0.2s;
-    }
-
-    .pricing-enquire:hover { background: var(--crimson); color: var(--white); border-color: var(--crimson); }
-
-    .pricing-cta { text-align: center; margin-top: 36px; }
-    .pricing-cta p { font-size: 0.82rem; color: var(--muted); margin-bottom: 16px; }
-
-    /* ─── TESTIMONIALS + FAQ ─── */
-    #testimonials-page { padding: 90px 80px 60px; background: linear-gradient(135deg, var(--rose-light) 0%, var(--lavender-light) 100%); }
-
-    .testimonials-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 16px; }
-
-    .testimonial-card { background: var(--white); border-radius: 6px; padding: 32px 28px; box-shadow: 0 4px 24px rgba(199,62,103,0.06); }
-
-    .testimonial-stars { color: var(--crimson); font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 16px; }
-
-    .testimonial-text {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.05rem;
-      font-weight: 400;
-      font-style: italic;
-      line-height: 1.65;
-      color: var(--dark);
-      margin-bottom: 20px;
-    }
-
-    .testimonial-author { font-size: 0.78rem; font-weight: 600; color: var(--text); letter-spacing: 0.04em; }
-    .testimonial-location { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
-
-    #faq-page { padding: 80px 80px 100px; background: var(--white); }
-
-    .faq-list {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      overflow: hidden;
-    }
-
-    .faq-item { border-bottom: 1px solid var(--border); }
-    .faq-item:last-child { border-bottom: none; }
-
-    .faq-q {
-      width: 100%;
-      background: none;
-      border: none;
-      cursor: pointer;
-      padding: 22px 28px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      text-align: left;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--text);
-      transition: background 0.2s;
-    }
-
-    .faq-q:hover { background: var(--rose-light); }
-    .faq-q.open { background: var(--rose-light); }
-
-    .faq-chevron { flex-shrink: 0; width: 18px; height: 18px; transition: transform 0.3s; }
-    .faq-q.open .faq-chevron { transform: rotate(180deg); }
-
-    .faq-a {
-      padding: 0 28px;
-      font-size: 0.85rem;
-      line-height: 1.75;
-      color: #666;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.35s ease, padding 0.35s ease;
-    }
-
-    .faq-a.open { max-height: 240px; padding: 0 28px 22px; }
-
-    /* ─── CONTACT ─── */
-    #contact-page { padding: 90px 80px 0; background: var(--dark); }
-
-    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; padding-bottom: 90px; }
-
-    .contact-left .section-eyebrow { color: var(--rose); }
-    .contact-left .section-title { color: var(--white); }
-    .contact-left .section-body { color: #aaa; }
-
-    .contact-details { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
-    .contact-item { display: flex; gap: 14px; align-items: flex-start; }
-
-    .contact-item-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      background: rgba(244,164,192,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .contact-item-icon svg { width: 16px; height: 16px; color: var(--rose); }
-    .contact-item-label { font-size: 0.72rem; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: #666; margin-bottom: 4px; }
-    .contact-item-value { font-size: 0.88rem; color: var(--white); line-height: 1.5; }
-
-    .social-links { margin-top: 32px; display: flex; gap: 12px; }
-
-    .social-link {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid #333;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #999;
-      text-decoration: none;
-      transition: border-color 0.2s, color 0.2s;
-    }
-
-    .social-link:hover { border-color: var(--rose); color: var(--rose); }
-    .social-link svg { width: 16px; height: 16px; }
-
-    .contact-right { background: #262626; border-radius: 6px; padding: 40px; }
-    .contact-right h3 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--white); margin-bottom: 8px; }
-    .contact-right p { font-size: 0.82rem; color: #888; margin-bottom: 28px; }
-
-    .wa-btn {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: #25D366;
-      color: var(--white);
-      padding: 16px 24px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 0.88rem;
-      font-weight: 600;
-      margin-bottom: 20px;
-      transition: opacity 0.2s;
-    }
-
-    .wa-btn:hover { opacity: 0.9; }
-    .wa-btn svg { width: 22px; height: 22px; flex-shrink: 0; }
-
-    .divider-text { text-align: center; font-size: 0.75rem; color: #555; margin: 16px 0; position: relative; }
-
-    .divider-text::before, .divider-text::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: calc(50% - 20px);
-      height: 1px;
-      background: #333;
-    }
-
-    .divider-text::before { left: 0; }
-    .divider-text::after { right: 0; }
-
-    .call-link {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: transparent;
-      border: 1px solid #333;
-      color: var(--white);
-      padding: 14px 24px;
-      border-radius: 4px;
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: 500;
-      transition: border-color 0.2s;
-    }
-
-    .call-link:hover { border-color: var(--rose); }
-    .call-link svg { width: 18px; height: 18px; color: var(--rose); flex-shrink: 0; }
-
-    /* ─── FOOTER ─── */
-    footer {
-      background: #111;
-      padding: 28px 80px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      border-top: 1px solid #222;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: #666; }
-    .footer-copy { font-size: 0.72rem; color: #444; }
-    .footer-credit { font-size: 0.72rem; color: #444; }
-    .footer-credit a { color: #666; text-decoration: none; }
-
-    .footer-links { display: flex; gap: 20px; list-style: none; }
-    .footer-links a {
-      font-size: 0.72rem;
-      color: #777;
-      text-decoration: none;
-      cursor: pointer;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-    }
-    .footer-links a:hover { color: var(--rose); }
-
-    /* ─── WHATSAPP FLOAT ─── */
-    .wa-float {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      width: 56px;
-      height: 56px;
-      border-radius: 50%;
-      background: #25D366;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 20px rgba(37,211,102,0.4);
-      z-index: 90;
-      text-decoration: none;
-      transition: transform 0.2s;
-    }
-
-    .wa-float:hover { transform: scale(1.08); }
-    .wa-float svg { width: 28px; height: 28px; color: var(--white); }
-
-    /* ─── BACK TO TOP ─── */
-    .top-btn {
-      position: fixed;
-      bottom: 28px;
-      right: 96px;
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--white);
-      border: 1px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-      z-index: 90;
-      cursor: pointer;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.25s, transform 0.2s;
-    }
-    .top-btn.show { opacity: 1; pointer-events: auto; }
-    .top-btn:hover { transform: translateY(-2px); border-color: var(--rose); }
-    .top-btn svg { width: 18px; height: 18px; color: var(--crimson); }
-
-    /* utility */
-    .hidden-page { display: none; }
-
-    /* ─── MOBILE ─── */
-    @media (max-width: 768px) {
-      nav { padding: 0 20px; }
-      .nav-links { display: none; }
-      .nav-links.open {
-        display: flex;
-        flex-direction: column;
-        position: fixed;
-        top: 68px;
-        left: 0;
-        right: 0;
-        background: var(--white);
-        padding: 24px 20px;
-        gap: 20px;
-        border-bottom: 1px solid var(--border);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-        max-height: calc(100vh - 68px);
-        overflow-y: auto;
-      }
-      .nav-links a.active::after { display: none; }
-      .nav-toggle { display: flex; }
-
-      .page-header { padding: 120px 20px 50px; }
-
-      #home-hero { grid-template-columns: 1fr; min-height: auto; }
-      .hero-left { padding: 60px 20px 48px; }
-      .hero-right { height: 60vw; }
-      .hero-stats { gap: 24px; }
-      .hero-badge { left: 16px; bottom: 16px; }
-
-      #home-nav-cards { padding: 60px 20px; }
-      .nav-cards-grid { grid-template-columns: 1fr 1fr; }
-
-      #about-teaser { grid-template-columns: 1fr; padding: 60px 20px; gap: 40px; }
-      .about-image-grid { height: 300px; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr; }
-
-      .timeline-item { grid-template-columns: 60px 1fr; gap: 14px; }
-      .timeline-item::before { left: 67px; }
-      .timeline-year { font-size: 1.05rem; }
-
-      .values-grid { grid-template-columns: 1fr; }
-
-      #services-page { padding: 60px 20px; }
-      .services-grid-full { grid-template-columns: 1fr; }
-      .service-card-full { flex-direction: column; }
-      .services-cta-banner { padding: 32px 24px; }
-
-      #results-page { padding: 60px 20px; }
-      .ba-grid { grid-template-columns: 1fr; }
-
-      #pricing-page { padding: 60px 20px; }
-      .pricing-row { padding: 16px 20px; }
-
-      #testimonials-page { padding: 60px 20px 40px; }
-      .testimonials-grid { grid-template-columns: 1fr; }
-
-      #faq-page { padding: 50px 20px 60px; }
-
-      #contact-page { padding: 60px 20px 0; }
-      .contact-grid { grid-template-columns: 1fr; gap: 40px; padding-bottom: 60px; }
-
-      footer { padding: 20px; flex-direction: column; gap: 12px; text-align: center; }
-      .footer-links { flex-wrap: wrap; justify-content: center; }
-
-      .top-btn { right: 84px; width: 40px; height: 40px; bottom: 24px; }
-      .wa-float { width: 50px; height: 50px; bottom: 24px; }
-    }
-
-    @media (max-width: 480px) {
-      .nav-cards-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dr. Unwala's Dental Clinic — Mumbai's Premier Dental Care Since 1971</title>
+<meta name="description" content="Dr. Ummulkiram Unwala's premium dental clinic in Bhindi Bazaar, Mumbai. 53 years of trusted dental care — general dentistry, implants, Invisalign, root canal, and full mouth rehabilitation.">
+<meta name="keywords" content="dentist Mumbai, dental clinic Bhindi Bazaar, Invisalign Mumbai, dental implants Mumbai, root canal Mumbai, Dr Unwala dental">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+<style>
+/* ── RESET & BASE ────────────────────────────────────────────── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#C73E67;
+  --blush:#F4A4C0;
+  --lavender:#EFCAFF;
+  --pearl:#EBEBEB;
+  --ink:#1A1A1A;
+  --white:#FFFFFF;
+  --rose-dark:#9E2E50;
+  --rose-light:#F0B8CC;
+  --section-pad:120px;
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{
+  font-family:'DM Sans',sans-serif;
+  color:var(--ink);
+  background:var(--white);
+  overflow-x:hidden;
+  cursor:default;
+}
+::selection{background:var(--blush);color:var(--rose-dark)}
+a{text-decoration:none;color:inherit}
+img{display:block;max-width:100%;height:auto}
+button{border:none;background:none;cursor:pointer;font-family:inherit}
+
+/* ── SCROLLBAR ───────────────────────────────────────────────── */
+::-webkit-scrollbar{width:4px}
+::-webkit-scrollbar-track{background:var(--pearl)}
+::-webkit-scrollbar-thumb{background:var(--rose);border-radius:2px}
+
+/* ── LOADER ──────────────────────────────────────────────────── */
+#loader{
+  position:fixed;inset:0;z-index:9999;
+  background:var(--white);
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  transition:opacity 0.8s ease, visibility 0.8s ease;
+}
+#loader.fade-out{opacity:0;visibility:hidden;pointer-events:none}
+.loader-tooth{
+  width:80px;height:80px;
+  margin-bottom:28px;
+}
+.loader-tooth svg path{
+  stroke:var(--rose);
+  stroke-width:2.5;
+  fill:none;
+  stroke-dasharray:300;
+  stroke-dashoffset:300;
+  animation:draw-tooth 2.2s cubic-bezier(.4,0,.2,1) forwards;
+}
+.loader-tooth svg path.fill-tooth{
+  fill:var(--lavender);
+  stroke:none;
+  opacity:0;
+  animation:fade-fill 0.5s ease 2s forwards;
+}
+@keyframes draw-tooth{
+  to{stroke-dashoffset:0}
+}
+@keyframes fade-fill{
+  to{opacity:1}
+}
+.loader-text{
+  font-family:'Playfair Display',serif;
+  font-size:1.1rem;
+  color:var(--rose);
+  letter-spacing:0.15em;
+  opacity:0;
+  animation:fade-in-text 0.6s ease 1.4s forwards;
+}
+.loader-dot{
+  display:inline-block;
+  animation:dot-pulse 1.2s ease infinite;
+}
+.loader-dot:nth-child(2){animation-delay:0.2s}
+.loader-dot:nth-child(3){animation-delay:0.4s}
+@keyframes dot-pulse{0%,80%,100%{opacity:0.2}40%{opacity:1}}
+@keyframes fade-in-text{to{opacity:1}}
+.loader-bar-wrap{
+  width:120px;height:2px;
+  background:var(--pearl);
+  border-radius:2px;
+  margin-top:20px;
+  overflow:hidden;
+  opacity:0;
+  animation:fade-in-text 0.6s ease 1.5s forwards;
+}
+.loader-bar{
+  height:100%;
+  background:linear-gradient(90deg,var(--blush),var(--rose));
+  border-radius:2px;
+  width:0;
+  animation:progress-bar 1.5s cubic-bezier(.4,0,.2,1) 1.5s forwards;
+}
+@keyframes progress-bar{to{width:100%}}
+
+/* ── NAV ─────────────────────────────────────────────────────── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:20px 48px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
+}
+nav.scrolled{
+  background:rgba(255,255,255,0.94);
+  backdrop-filter:blur(20px);
+  box-shadow:0 1px 0 rgba(199,62,103,0.12);
+  padding:14px 48px;
+}
+.nav-logo{
+  font-family:'Playfair Display',serif;
+  font-size:1.25rem;
+  font-weight:600;
+  color:var(--white);
+  transition:color 0.4s;
+  line-height:1.2;
+}
+nav.scrolled .nav-logo{color:var(--rose)}
+.nav-logo span{
+  display:block;
+  font-family:'DM Sans',sans-serif;
+  font-size:0.62rem;
+  font-weight:400;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  opacity:0.75;
+}
+.nav-links{
+  display:flex;align-items:center;gap:36px;
+  list-style:none;
+}
+.nav-links a{
+  font-size:0.82rem;
+  font-weight:500;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  color:rgba(255,255,255,0.85);
+  transition:color 0.3s;
+  position:relative;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;bottom:-3px;left:0;right:0;
+  height:1px;background:var(--blush);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.3s ease;
+}
+.nav-links a:hover::after{transform:scaleX(1)}
+nav.scrolled .nav-links a{color:var(--ink)}
+nav.scrolled .nav-links a:hover{color:var(--rose)}
+.nav-cta{
+  padding:10px 24px;
+  background:var(--white);
+  color:var(--rose);
+  border-radius:50px;
+  font-size:0.78rem;
+  font-weight:600;
+  letter-spacing:0.06em;
+  text-transform:uppercase;
+  transition:all 0.3s;
+}
+.nav-cta:hover{background:var(--rose);color:var(--white)}
+nav.scrolled .nav-cta{background:var(--rose);color:var(--white)}
+nav.scrolled .nav-cta:hover{background:var(--rose-dark)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{width:22px;height:1.5px;background:currentColor;transition:all 0.3s;display:block}
+.mobile-menu{
+  display:none;position:fixed;inset:0;
+  background:var(--white);z-index:99;
+  flex-direction:column;align-items:center;justify-content:center;gap:40px;
+  opacity:0;pointer-events:none;transition:opacity 0.3s;
+}
+.mobile-menu.open{opacity:1;pointer-events:all;display:flex}
+.mobile-menu a{
+  font-family:'Playfair Display',serif;
+  font-size:2rem;font-weight:500;color:var(--ink);
+  transition:color 0.3s;
+}
+.mobile-menu a:hover{color:var(--rose)}
+
+/* ── HERO ────────────────────────────────────────────────────── */
+#hero{
+  position:relative;
+  height:100vh;min-height:700px;
+  display:flex;align-items:center;
+  background:linear-gradient(135deg,#1a0812 0%,#3d1027 40%,#6b1a3e 70%,#9e2e50 100%);
+  overflow:hidden;
+}
+.hero-orbs{position:absolute;inset:0;pointer-events:none}
+.orb{
+  position:absolute;border-radius:50%;
+  filter:blur(80px);opacity:0.25;
+  animation:float-orb 8s ease-in-out infinite;
+}
+.orb1{width:600px;height:600px;background:var(--blush);top:-200px;right:-100px;animation-delay:0s}
+.orb2{width:400px;height:400px;background:var(--lavender);bottom:-100px;left:-50px;animation-delay:3s}
+.orb3{width:300px;height:300px;background:var(--rose);top:50%;left:40%;animation-delay:1.5s}
+@keyframes float-orb{
+  0%,100%{transform:translate(0,0) scale(1)}
+  50%{transform:translate(20px,-30px) scale(1.05)}
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.03) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,0.03) 1px,transparent 1px);
+  background-size:60px 60px;
+}
+.hero-content{
+  position:relative;z-index:2;
+  max-width:1400px;margin:0 auto;
+  padding:0 48px;
+  width:100%;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:80px;
+  align-items:center;
+}
+.hero-text{color:var(--white)}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.72rem;font-weight:500;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--blush);
+  margin-bottom:28px;
+  opacity:0;animation:slide-up 0.8s ease 0.3s forwards;
+}
+.hero-eyebrow::before{
+  content:'';display:block;
+  width:30px;height:1px;background:var(--blush);
+}
+.hero-h1{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2.8rem,5vw,4.8rem);
+  font-weight:500;line-height:1.1;
+  margin-bottom:24px;
+  opacity:0;animation:slide-up 0.8s ease 0.5s forwards;
+}
+.hero-h1 em{
+  font-style:italic;
+  background:linear-gradient(135deg,var(--blush),var(--lavender));
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+}
+.hero-sub{
+  font-size:1.05rem;line-height:1.7;
+  color:rgba(255,255,255,0.7);
+  max-width:480px;
+  margin-bottom:44px;
+  opacity:0;animation:slide-up 0.8s ease 0.7s forwards;
+}
+.hero-actions{
+  display:flex;gap:16px;flex-wrap:wrap;
+  opacity:0;animation:slide-up 0.8s ease 0.9s forwards;
+}
+.btn-primary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;
+  background:var(--rose);
+  color:var(--white);
+  border-radius:50px;
+  font-size:0.88rem;font-weight:600;
+  letter-spacing:0.04em;
+  transition:all 0.3s;
+  box-shadow:0 8px 32px rgba(199,62,103,0.4);
+}
+.btn-primary:hover{
+  background:var(--rose-dark);
+  transform:translateY(-2px);
+  box-shadow:0 12px 40px rgba(199,62,103,0.5);
+}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:16px 36px;
+  background:rgba(255,255,255,0.1);
+  color:var(--white);
+  border:1px solid rgba(255,255,255,0.25);
+  border-radius:50px;
+  font-size:0.88rem;font-weight:500;
+  letter-spacing:0.04em;
+  transition:all 0.3s;
+  backdrop-filter:blur(10px);
+}
+.btn-secondary:hover{background:rgba(255,255,255,0.18);transform:translateY(-2px)}
+.hero-stats{
+  display:flex;gap:40px;
+  margin-top:48px;
+  padding-top:40px;
+  border-top:1px solid rgba(255,255,255,0.12);
+  opacity:0;animation:slide-up 0.8s ease 1.1s forwards;
+}
+.stat-item{color:var(--white)}
+.stat-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.4rem;font-weight:600;
+  color:var(--blush);
+  line-height:1;
+}
+.stat-label{
+  font-size:0.75rem;color:rgba(255,255,255,0.55);
+  letter-spacing:0.08em;text-transform:uppercase;
+  margin-top:6px;
+}
+.hero-image-wrap{
+  position:relative;
+  opacity:0;animation:slide-in-right 1s ease 0.6s forwards;
+}
+.hero-image-frame{
+  position:relative;
+  border-radius:20px;
+  overflow:hidden;
+  aspect-ratio:4/5;
+  max-height:580px;
+}
+.hero-image-frame img{
+  width:100%;height:100%;object-fit:cover;
+  filter:brightness(0.9) saturate(1.1);
+}
+.hero-image-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(160deg,transparent 50%,rgba(30,5,20,0.5) 100%);
+}
+.hero-tag{
+  position:absolute;bottom:24px;left:24px;
+  background:rgba(255,255,255,0.12);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.2);
+  color:var(--white);
+  padding:14px 20px;
+  border-radius:14px;
+}
+.hero-tag-name{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:500;
+}
+.hero-tag-sub{
+  font-size:0.72rem;
+  color:rgba(255,255,255,0.65);
+  margin-top:3px;letter-spacing:0.05em;
+}
+.hero-deco-ring{
+  position:absolute;top:-30px;right:-30px;
+  width:180px;height:180px;
+  border:1px solid rgba(244,164,192,0.25);
+  border-radius:50%;
+  animation:spin-slow 20s linear infinite;
+}
+.hero-deco-ring::after{
+  content:'';position:absolute;top:15px;left:15px;right:15px;bottom:15px;
+  border:1px dashed rgba(239,202,255,0.2);border-radius:50%;
+}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+@keyframes slide-up{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+@keyframes slide-in-right{from{opacity:0;transform:translateX(40px)}to{opacity:1;transform:translateX(0)}}
+.hero-scroll{
+  position:absolute;bottom:36px;left:50%;transform:translateX(-50%);
+  display:flex;flex-direction:column;align-items:center;gap:8px;
+  color:rgba(255,255,255,0.4);
+  font-size:0.68rem;letter-spacing:0.15em;text-transform:uppercase;
+}
+.scroll-line{
+  width:1px;height:48px;
+  background:linear-gradient(to bottom,rgba(255,255,255,0.4),transparent);
+  animation:scroll-pulse 2s ease-in-out infinite;
+}
+@keyframes scroll-pulse{0%,100%{opacity:0.4;transform:scaleY(1)}50%{opacity:1;transform:scaleY(1.1)}}
+
+/* ── LEGACY SECTION ──────────────────────────────────────────── */
+#legacy{
+  background:var(--white);
+  padding:var(--section-pad) 0;
+}
+.container{max-width:1400px;margin:0 auto;padding:0 48px}
+.section-tag{
+  display:inline-flex;align-items:center;gap:10px;
+  font-size:0.7rem;font-weight:600;
+  letter-spacing:0.25em;text-transform:uppercase;
+  color:var(--rose);
+  margin-bottom:20px;
+}
+.section-tag::before{content:'';display:block;width:24px;height:1.5px;background:var(--rose)}
+.legacy-grid{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:100px;align-items:center;
+}
+.legacy-images{
+  display:grid;grid-template-columns:1fr 1fr;
+  gap:16px;
+  position:relative;
+}
+.clinic-img{
+  border-radius:16px;overflow:hidden;
+  aspect-ratio:3/4;
+}
+.clinic-img:first-child{margin-top:40px}
+.clinic-img img{width:100%;height:100%;object-fit:cover}
+.legacy-badge{
+  position:absolute;bottom:-20px;right:-20px;
+  width:120px;height:120px;
+  background:var(--rose);
+  border-radius:50%;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  color:var(--white);
+  box-shadow:0 16px 40px rgba(199,62,103,0.35);
+}
+.legacy-badge-num{
+  font-family:'Playfair Display',serif;
+  font-size:2.2rem;font-weight:600;line-height:1;
+}
+.legacy-badge-text{
+  font-size:0.62rem;letter-spacing:0.1em;text-transform:uppercase;
+  opacity:0.8;margin-top:2px;text-align:center;
+}
+.legacy-text{}
+.legacy-h2{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:500;line-height:1.15;
+  color:var(--ink);
+  margin-bottom:24px;
+}
+.legacy-h2 em{font-style:italic;color:var(--rose)}
+.legacy-p{
+  font-size:1rem;line-height:1.8;
+  color:#555;margin-bottom:16px;
+}
+.legacy-quote{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.4rem;line-height:1.5;
+  color:var(--rose);
+  border-left:3px solid var(--blush);
+  padding-left:24px;
+  margin:32px 0;
+}
+.legacy-detail{
+  display:flex;gap:32px;margin-top:32px;
+}
+.detail-item{display:flex;align-items:flex-start;gap:12px}
+.detail-icon{
+  width:40px;height:40px;
+  background:var(--lavender);border-radius:10px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.detail-icon svg{width:18px;height:18px;color:var(--rose)}
+.detail-label{font-size:0.72rem;color:#888;letter-spacing:0.05em;text-transform:uppercase;margin-bottom:2px}
+.detail-val{font-size:0.92rem;font-weight:600;color:var(--ink)}
+
+/* ── SERVICES ────────────────────────────────────────────────── */
+#services{
+  background:var(--pearl);
+  padding:var(--section-pad) 0;
+}
+.services-header{
+  text-align:center;max-width:640px;margin:0 auto 72px;
+}
+.section-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);
+  font-weight:500;line-height:1.15;
+  color:var(--ink);
+  margin-bottom:16px;
+}
+.section-sub{
+  font-size:1rem;line-height:1.7;color:#666;
+}
+.services-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:24px;
+}
+.service-card{
+  background:var(--white);
+  border-radius:20px;
+  padding:40px 36px;
+  position:relative;overflow:hidden;
+  transition:transform 0.3s,box-shadow 0.3s;
+  cursor:default;
+}
+.service-card::before{
+  content:'';position:absolute;
+  top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blush),var(--lavender));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 0.4s ease;
+}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.1)}
+.service-card:hover::before{transform:scaleX(1)}
+.service-icon{
+  width:56px;height:56px;
+  background:linear-gradient(135deg,var(--lavender),var(--blush));
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:24px;
+}
+.service-icon svg{width:24px;height:24px;color:var(--rose)}
+.service-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:500;
+  color:var(--ink);margin-bottom:10px;
+}
+.service-desc{font-size:0.88rem;line-height:1.7;color:#777}
+.service-arrow{
+  position:absolute;bottom:28px;right:28px;
+  width:32px;height:32px;
+  border-radius:50%;
+  background:var(--pearl);
+  display:flex;align-items:center;justify-content:center;
+  transition:all 0.3s;
+}
+.service-card:hover .service-arrow{background:var(--rose);color:var(--white)}
+
+/* ── BEFORE & AFTER ──────────────────────────────────────────── */
+#transformations{
+  background:var(--white);
+  padding:var(--section-pad) 0;
+}
+.ba-header{text-align:center;margin-bottom:72px}
+.ba-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:40px;
+  max-width:1100px;margin:0 auto;
+}
+.ba-card{
+  border-radius:20px;overflow:hidden;
+  background:var(--pearl);
+  position:relative;
+  box-shadow:0 4px 24px rgba(0,0,0,0.06);
+  transition:transform 0.3s,box-shadow 0.3s;
+}
+.ba-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.12)}
+.ba-label-row{
+  display:flex;justify-content:space-between;
+  padding:12px 20px;
+  background:var(--pearl);
+}
+.ba-lbl{
+  font-size:0.68rem;font-weight:600;
+  letter-spacing:0.15em;text-transform:uppercase;
+  padding:4px 12px;border-radius:20px;
+}
+.ba-lbl.before{background:#fee;color:#c0392b}
+.ba-lbl.after{background:#efe;color:#27ae60}
+.ba-image{
+  width:100%;
+  aspect-ratio:1/1.5;
+  overflow:hidden;
+}
+.ba-image img{
+  width:100%;height:100%;object-fit:cover;
+  transition:transform 0.5s;
+}
+.ba-card:hover .ba-image img{transform:scale(1.03)}
+.ba-caption{
+  padding:20px 24px 24px;
+  background:var(--white);
+}
+.ba-caption-title{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;font-weight:500;color:var(--ink);
+  margin-bottom:4px;
+}
+.ba-caption-sub{font-size:0.8rem;color:#888;line-height:1.5}
+
+/* ── TESTIMONIALS ────────────────────────────────────────────── */
+#testimonials{
+  background:linear-gradient(135deg,#1a0812,#3d1027,#6b1a3e);
+  padding:var(--section-pad) 0;
+  overflow:hidden;position:relative;
+}
+#testimonials .orb{opacity:0.12}
+.testimonials-header{text-align:center;margin-bottom:64px}
+.testimonials-header .section-tag{color:var(--blush)}
+.testimonials-header .section-title{color:var(--white)}
+.testimonials-header .section-sub{color:rgba(255,255,255,0.6)}
+.testimonials-track{
+  display:flex;gap:28px;
+  overflow-x:auto;
+  padding:0 48px 24px;
+  scroll-snap-type:x mandatory;
+  -webkit-overflow-scrolling:touch;
+  scrollbar-width:none;
+}
+.testimonials-track::-webkit-scrollbar{display:none}
+.testi-card{
+  flex:0 0 380px;
+  background:rgba(255,255,255,0.07);
+  backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:20px;
+  padding:36px;
+  scroll-snap-align:start;
+  transition:transform 0.3s;
+}
+.testi-card:hover{transform:translateY(-4px)}
+.testi-stars{
+  display:flex;gap:4px;margin-bottom:20px;
+  color:var(--blush);
+  font-size:1rem;
+}
+.testi-text{
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.15rem;line-height:1.65;
+  color:rgba(255,255,255,0.85);
+  margin-bottom:24px;
+}
+.testi-author{
+  display:flex;align-items:center;gap:12px;
+}
+.testi-avatar{
+  width:42px;height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,var(--blush),var(--lavender));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;
+  color:var(--rose-dark);font-size:1rem;font-weight:600;
+}
+.testi-name{
+  font-weight:600;font-size:0.88rem;color:var(--white);
+}
+.testi-loc{font-size:0.75rem;color:rgba(255,255,255,0.45);margin-top:2px}
+
+/* ── PRICING ─────────────────────────────────────────────────── */
+#pricing{
+  background:var(--pearl);
+  padding:var(--section-pad) 0;
+}
+.pricing-header{text-align:center;margin-bottom:72px}
+.pricing-note{
+  text-align:center;
+  font-family:'Cormorant Garamond',serif;
+  font-style:italic;
+  font-size:1.1rem;color:#888;
+  margin-bottom:56px;
+}
+.pricing-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:24px;
+  max-width:1100px;margin:0 auto;
+}
+.pricing-card{
+  background:var(--white);
+  border-radius:20px;
+  padding:40px 32px;
+  position:relative;overflow:hidden;
+  border:2px solid transparent;
+  transition:all 0.3s;
+}
+.pricing-card.featured{
+  border-color:var(--rose);
+  box-shadow:0 20px 60px rgba(199,62,103,0.15);
+}
+.pricing-card.featured::before{
+  content:'Most Popular';
+  position:absolute;top:20px;right:-28px;
+  background:var(--rose);color:var(--white);
+  font-size:0.65rem;font-weight:700;
+  letter-spacing:0.1em;text-transform:uppercase;
+  padding:4px 40px;
+  transform:rotate(35deg);
+}
+.pricing-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(0,0,0,0.1)}
+.pricing-icon{
+  width:52px;height:52px;
+  background:linear-gradient(135deg,var(--lavender),var(--blush));
+  border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  margin-bottom:20px;
+}
+.pricing-name{
+  font-family:'Playfair Display',serif;
+  font-size:1.2rem;font-weight:500;color:var(--ink);
+  margin-bottom:8px;
+}
+.pricing-range{
+  font-size:1.6rem;font-weight:700;
+  color:var(--rose);
+  margin-bottom:4px;
+  font-family:'Playfair Display',serif;
+}
+.pricing-est{font-size:0.75rem;color:#999;margin-bottom:24px}
+.pricing-list{list-style:none;margin-bottom:32px}
+.pricing-list li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:0.85rem;color:#555;
+  padding:8px 0;
+  border-bottom:1px solid var(--pearl);
+}
+.pricing-list li::before{
+  content:'✦';color:var(--blush);font-size:0.7rem;
+  flex-shrink:0;margin-top:2px;
+}
+.pricing-cta{
+  width:100%;padding:14px;
+  background:var(--pearl);
+  color:var(--rose);
+  border-radius:50px;
+  font-size:0.82rem;font-weight:600;
+  letter-spacing:0.04em;
+  transition:all 0.3s;
+  text-align:center;display:block;
+}
+.pricing-cta:hover,.pricing-card.featured .pricing-cta{background:var(--rose);color:var(--white)}
+.pricing-disclaimer{
+  text-align:center;
+  font-size:0.78rem;color:#aaa;
+  margin-top:40px;
+  max-width:600px;margin-left:auto;margin-right:auto;
+}
+
+/* ── FAQ ─────────────────────────────────────────────────────── */
+#faq{
+  background:var(--white);
+  padding:var(--section-pad) 0;
+}
+.faq-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;
+}
+.faq-left{}
+.faq-left .section-title{margin-bottom:20px}
+.faq-left p{font-size:0.95rem;line-height:1.8;color:#666;margin-bottom:32px}
+.faq-contact-box{
+  background:linear-gradient(135deg,var(--lavender),var(--blush));
+  border-radius:20px;padding:32px;
+}
+.faq-contact-box p{font-size:0.88rem;line-height:1.6;color:var(--rose-dark);margin-bottom:20px}
+.faq-right{}
+.faq-item{
+  border-bottom:1px solid var(--pearl);
+  overflow:hidden;
+}
+.faq-q{
+  width:100%;text-align:left;
+  padding:24px 0;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+  font-size:0.95rem;font-weight:500;color:var(--ink);
+  transition:color 0.3s;
+}
+.faq-q:hover{color:var(--rose)}
+.faq-q.open{color:var(--rose)}
+.faq-icon{
+  width:28px;height:28px;flex-shrink:0;
+  border-radius:50%;border:1.5px solid currentColor;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;line-height:1;
+  transition:transform 0.3s,background 0.3s,border-color 0.3s;
+}
+.faq-q.open .faq-icon{
+  transform:rotate(45deg);
+  background:var(--rose);border-color:var(--rose);color:var(--white);
+}
+.faq-a{
+  max-height:0;overflow:hidden;
+  transition:max-height 0.4s ease,padding 0.3s;
+  font-size:0.88rem;line-height:1.75;color:#666;
+}
+.faq-a.open{max-height:300px;padding-bottom:20px}
+
+/* ── CONTACT ─────────────────────────────────────────────────── */
+#contact{
+  background:linear-gradient(135deg,#1a0812,#3d1027);
+  padding:var(--section-pad) 0;
+  position:relative;overflow:hidden;
+}
+#contact .orb{opacity:0.1}
+.contact-grid{
+  display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;
+  position:relative;z-index:2;
+}
+.contact-left .section-tag{color:var(--blush)}
+.contact-left .section-title{color:var(--white)}
+.contact-left p{
+  font-size:1rem;line-height:1.8;
+  color:rgba(255,255,255,0.65);
+  margin-bottom:40px;
+}
+.contact-items{display:flex;flex-direction:column;gap:20px}
+.contact-item{
+  display:flex;align-items:center;gap:16px;
+  color:rgba(255,255,255,0.8);
+  font-size:0.9rem;
+}
+.contact-item-icon{
+  width:44px;height:44px;flex-shrink:0;
+  background:rgba(244,164,192,0.15);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+}
+.contact-item-icon svg{width:18px;height:18px;color:var(--blush)}
+.contact-right{}
+.contact-card{
+  background:rgba(255,255,255,0.06);
+  backdrop-filter:blur(20px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:24px;
+  padding:48px 44px;
+}
+.form-group{margin-bottom:20px}
+.form-label{
+  display:block;
+  font-size:0.72rem;font-weight:600;
+  letter-spacing:0.08em;text-transform:uppercase;
+  color:rgba(255,255,255,0.5);
+  margin-bottom:8px;
+}
+.form-input,.form-select,.form-textarea{
+  width:100%;
+  padding:14px 18px;
+  background:rgba(255,255,255,0.07);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;
+  color:var(--white);
+  font-family:'DM Sans',sans-serif;
+  font-size:0.92rem;
+  transition:border-color 0.3s,background 0.3s;
+  outline:none;
+}
+.form-input:focus,.form-select:focus,.form-textarea:focus{
+  border-color:var(--blush);
+  background:rgba(255,255,255,0.1);
+}
+.form-input::placeholder,.form-textarea::placeholder{color:rgba(255,255,255,0.3)}
+.form-select{appearance:none;cursor:pointer}
+.form-select option{background:#3d1027;color:var(--white)}
+.form-textarea{resize:vertical;min-height:110px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.btn-submit{
+  width:100%;padding:16px;
+  background:var(--rose);
+  color:var(--white);
+  border-radius:50px;
+  font-size:0.9rem;font-weight:600;
+  letter-spacing:0.04em;
+  transition:all 0.3s;
+  box-shadow:0 8px 24px rgba(199,62,103,0.4);
+  display:flex;align-items:center;justify-content:center;gap:10px;
+}
+.btn-submit:hover{background:var(--rose-dark);transform:translateY(-2px);box-shadow:0 12px 32px rgba(199,62,103,0.5)}
+.btn-submit svg{width:18px;height:18px}
+.social-links{
+  display:flex;gap:12px;margin-top:32px;
+}
+.social-link{
+  width:44px;height:44px;
+  background:rgba(255,255,255,0.08);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  color:rgba(255,255,255,0.6);
+  transition:all 0.3s;
+}
+.social-link:hover{background:var(--rose);border-color:var(--rose);color:var(--white)}
+.social-link svg{width:18px;height:18px}
+
+/* ── WHATSAPP FLOAT ──────────────────────────────────────────── */
+.wa-float{
+  position:fixed;bottom:28px;right:28px;z-index:200;
+  width:58px;height:58px;
+  background:#25D366;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 24px rgba(37,211,102,0.4);
+  transition:transform 0.3s,box-shadow 0.3s;
+  animation:wa-pulse 3s ease-in-out infinite;
+}
+.wa-float:hover{transform:scale(1.1);box-shadow:0 12px 32px rgba(37,211,102,0.5);animation:none}
+.wa-float svg{width:28px;height:28px;color:white}
+@keyframes wa-pulse{
+  0%,100%{box-shadow:0 8px 24px rgba(37,211,102,0.4)}
+  50%{box-shadow:0 8px 32px rgba(37,211,102,0.6),0 0 0 8px rgba(37,211,102,0.1)}
+}
+
+/* ── FOOTER ──────────────────────────────────────────────────── */
+footer{
+  background:#0f0508;
+  padding:48px 0;
+  color:rgba(255,255,255,0.45);
+}
+.footer-inner{
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:20px;
+}
+.footer-brand{
+  font-family:'Playfair Display',serif;
+  font-size:1rem;color:rgba(255,255,255,0.7);
+}
+.footer-brand span{
+  display:block;font-family:'DM Sans',sans-serif;
+  font-size:0.72rem;color:rgba(255,255,255,0.35);
+  letter-spacing:0.1em;margin-top:4px;
+}
+.footer-copy{font-size:0.75rem}
+.footer-craft{
+  font-size:0.72rem;
+  color:rgba(255,255,255,0.35);
+}
+.footer-craft a{color:var(--blush);transition:color 0.3s}
+.footer-craft a:hover{color:var(--rose)}
+
+/* ── SCROLL REVEAL ───────────────────────────────────────────── */
+.reveal{
+  opacity:0;transform:translateY(28px);
+  transition:opacity 0.7s ease,transform 0.7s ease;
+}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-delay-1{transition-delay:0.1s}
+.reveal-delay-2{transition-delay:0.2s}
+.reveal-delay-3{transition-delay:0.3s}
+.reveal-delay-4{transition-delay:0.4s}
+
+/* ── MOBILE ──────────────────────────────────────────────────── */
+@media(max-width:1024px){
+  :root{--section-pad:80px}
+  .hero-content{grid-template-columns:1fr;gap:60px;text-align:center}
+  .hero-image-wrap{display:none}
+  .hero-stats{justify-content:center}
+  .legacy-grid{grid-template-columns:1fr;gap:60px}
+  .legacy-images{display:none}
+  .services-grid{grid-template-columns:1fr 1fr}
+  .ba-grid{grid-template-columns:1fr}
+  .pricing-grid{grid-template-columns:1fr}
+  .faq-grid{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+  nav{padding:16px 24px}
+  nav.scrolled{padding:12px 24px}
+  .nav-links{display:none}
+  .hamburger{display:flex;color:white}
+  nav.scrolled .hamburger{color:var(--ink)}
+  .container{padding:0 24px}
+  .testimonials-track{padding:0 24px 24px}
+}
+@media(max-width:640px){
+  :root{--section-pad:64px}
+  .services-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .hero-stats{flex-wrap:wrap;gap:24px}
+  .hero-content{padding:0 24px}
+  .pricing-grid{padding:0}
+}
+
+/* Page sections hidden by default */
+.page-section{display:none}
+.page-section.active{display:block}
+#hero{display:flex} /* hero always flex */
+</style>
 </head>
 <body>
 
-<!-- ─── LOADING SCREEN ─── -->
+<!-- ═══════════════════════════════════════ LOADER -->
 <div id="loader">
-  <svg class="tooth-svg" viewBox="0 0 72 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path class="loader-fill" d="M10 22 C10 14 16 8 24 8 C28 8 31 10 36 13 C41 10 44 8 48 8 C56 8 62 14 62 22 C62 32 58 44 54 54 C51 62 49 70 46 70 C43 70 42 64 40 58 C39 53 37 50 36 50 C35 50 33 53 32 58 C30 64 29 70 26 70 C23 70 21 62 18 54 C14 44 10 32 10 22Z"/>
-    <path class="tooth-path" d="M10 22 C10 14 16 8 24 8 C28 8 31 10 36 13 C41 10 44 8 48 8 C56 8 62 14 62 22 C62 32 58 44 54 54 C51 62 49 70 46 70 C43 70 42 64 40 58 C39 53 37 50 36 50 C35 50 33 53 32 58 C30 64 29 70 26 70 C23 70 21 62 18 54 C14 44 10 32 10 22Z"/>
-  </svg>
-  <div class="loader-name">DR. UNWALA'S DENTAL CLINIC</div>
+  <div class="loader-tooth">
+    <svg viewBox="0 0 80 90" xmlns="http://www.w3.org/2000/svg">
+      <!-- filled tooth shape (fades in after draw) -->
+      <path class="fill-tooth" d="M40 8 C28 8 18 14 15 24 C12 33 14 42 16 50 C18 60 19 72 22 80 C23 84 26 86 29 85 C32 84 33 78 34 72 C35 66 36 62 40 62 C44 62 45 66 46 72 C47 78 48 84 51 85 C54 86 57 84 58 80 C61 72 62 60 64 50 C66 42 68 33 65 24 C62 14 52 8 40 8Z"/>
+      <!-- stroke path for drawing animation -->
+      <path d="M40 8 C28 8 18 14 15 24 C12 33 14 42 16 50 C18 60 19 72 22 80 C23 84 26 86 29 85 C32 84 33 78 34 72 C35 66 36 62 40 62 C44 62 45 66 46 72 C47 78 48 84 51 85 C54 86 57 84 58 80 C61 72 62 60 64 50 C66 42 68 33 65 24 C62 14 52 8 40 8Z"/>
+    </svg>
+  </div>
+  <div class="loader-text">
+    Loading<span class="loader-dot">.</span><span class="loader-dot">.</span><span class="loader-dot">.</span>
+  </div>
+  <div class="loader-bar-wrap"><div class="loader-bar"></div></div>
 </div>
 
-<!-- ─── NAV ─── -->
+<!-- ═══════════════════════════════════════ NAVIGATION -->
 <nav id="navbar">
-  <a data-route="home" class="nav-logo">Dr. <span>Unwala's</span></a>
-  <ul class="nav-links" id="navLinks">
-    <li><a data-route="home">Home</a></li>
-    <li><a data-route="about">About</a></li>
-    <li><a data-route="services">Services</a></li>
-    <li><a data-route="results">Results</a></li>
-    <li><a data-route="pricing">Pricing</a></li>
-    <li><a data-route="testimonials">Reviews & FAQ</a></li>
-    <li><a data-route="contact" class="nav-cta">Book Now</a></li>
+  <a href="#" onclick="showPage('home')" class="nav-logo">
+    Dr. Unwala's
+    <span>Dental Clinic · Est. 1971</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#" onclick="showPage('home')">Home</a></li>
+    <li><a href="#" onclick="showPage('services')">Services</a></li>
+    <li><a href="#" onclick="showPage('about')">About</a></li>
+    <li><a href="#" onclick="showPage('faq')">FAQ</a></li>
+    <li><a href="#" onclick="showPage('contact')">Contact</a></li>
   </ul>
-  <button class="nav-toggle" id="navToggle" aria-label="Menu">
+  <a href="https://wa.me/918369786201" target="_blank" class="btn-primary nav-cta" style="padding:10px 22px">Book Appointment</a>
+  <div class="hamburger" id="hamburger" onclick="toggleMenu()">
     <span></span><span></span><span></span>
-  </button>
+  </div>
 </nav>
 
-<div id="page-root">
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" onclick="showPage('home');toggleMenu()">Home</a>
+  <a href="#" onclick="showPage('services');toggleMenu()">Services</a>
+  <a href="#" onclick="showPage('about');toggleMenu()">About</a>
+  <a href="#" onclick="showPage('faq');toggleMenu()">FAQ</a>
+  <a href="#" onclick="showPage('contact');toggleMenu()">Contact</a>
+  <a href="https://wa.me/918369786201" class="btn-primary" target="_blank">Book on WhatsApp</a>
+</div>
 
-  <!-- ════════════════════ HOME ════════════════════ -->
-  <div class="page" id="page-home">
+<!-- ═══════════════════════════════════════ HOME PAGE -->
+<div id="page-home" class="page-section active">
 
-    <section id="home-hero">
-      <div class="hero-left">
-        <p class="hero-eyebrow">Est. 1973 · Bhindi Bazaar, Mumbai</p>
-        <h1 class="hero-title">Dental care<br>that puts<br><em>you first.</em></h1>
-        <p class="hero-sub">Internationally trained, rooted in Mumbai. Dr. Ummulkiram Unwala blends the latest advances in dentistry with the warmth of a practice built on five decades of trust.</p>
-        <div class="hero-actions">
-          <a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20book%20an%20appointment." class="btn-primary" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.557 4.122 1.532 5.85L.057 23.855a.5.5 0 00.609.607l6.102-1.558A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.58 9.58 0 01-4.9-1.349l-.351-.208-3.621.924.966-3.526-.229-.362A9.573 9.573 0 012.4 12C2.4 6.698 6.698 2.4 12 2.4c5.302 0 9.6 4.298 9.6 9.6 0 5.302-4.298 9.6-9.6 9.6z"/></svg>
-            Book Appointment
-          </a>
-          <a data-route="services" class="btn-secondary">
-            View Services
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-          </a>
-        </div>
-        <div class="hero-stats">
-          <div><div class="hero-stat-num">53+</div><div class="hero-stat-label">Years of practice</div></div>
-          <div><div class="hero-stat-num">12</div><div class="hero-stat-label">Treatments offered</div></div>
-          <div><div class="hero-stat-num">2K+</div><div class="hero-stat-label">Smiles transformed</div></div>
-        </div>
-      </div>
-      <div class="hero-right">
-        <div class="hero-photo-placeholder">
-          <div class="photo-placeholder-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          </div>
-          <div class="photo-placeholder-text">Dr. Ummulkiram Unwala<br><small style="color:#bbb">Photo placeholder</small></div>
-        </div>
-        <div class="hero-badge">
-          <div class="badge-dot"></div>
-          <div>
-            <div class="badge-text">Accepting new patients</div>
-            <div class="badge-sub">Mon – Sat · 10am – 7pm</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Quick links to other pages -->
-    <section id="home-nav-cards">
-      <div class="section-header">
-        <p class="section-eyebrow">Explore</p>
-        <h2 class="section-title">Everything you need, in one place.</h2>
-      </div>
-      <div class="nav-cards-grid">
-        <a class="nav-card" data-route="services">
-          <div class="nav-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8 2 5 5 5 9c0 6 7 13 7 13s7-7 7-13c0-4-3-7-7-7z"/></svg></div>
-          <div class="nav-card-title">Services</div>
-          <div class="nav-card-desc">12 treatments, from check-ups to full mouth rehabilitation.</div>
-        </a>
-        <a class="nav-card" data-route="results">
-          <div class="nav-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></div>
-          <div class="nav-card-title">Results</div>
-          <div class="nav-card-desc">Real before-and-after transformations from real patients.</div>
-        </a>
-        <a class="nav-card" data-route="pricing">
-          <div class="nav-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
-          <div class="nav-card-title">Pricing</div>
-          <div class="nav-card-desc">Transparent, honest pricing with no hidden charges.</div>
-        </a>
-        <a class="nav-card" data-route="testimonials">
-          <div class="nav-card-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div>
-          <div class="nav-card-title">Reviews & FAQ</div>
-          <div class="nav-card-desc">What our patients say, and answers to common questions.</div>
-        </a>
-      </div>
-    </section>
-
-    <!-- About teaser -->
-    <section id="about-teaser">
-      <div>
-        <p class="section-eyebrow">Our Story</p>
-        <h2 class="section-title">Five decades of smiles, now elevated.</h2>
-        <p class="section-body">Dr. Unwala's Dental Clinic was founded in 1973 by Dr. Yusuf Unwala, a name synonymous with trusted dental care in Bhindi Bazaar. Today, his daughter Dr. Ummulkiram Unwala carries that legacy forward — with international training and a deeply personal touch.</p>
-        <a data-route="about" class="btn-secondary" style="margin-top:8px;">
-          Read Our Full Story
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-      <div class="about-image-grid">
-        <div class="about-img-wrap">
-          <div class="img-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Clinic photo 1<br><small>Replace with image</small></span>
-          </div>
-        </div>
-        <div class="about-img-wrap">
-          <div class="img-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Clinic photo 2<br><small>Replace with image</small></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-orbs">
+    <div class="orb orb1"></div>
+    <div class="orb orb2"></div>
+    <div class="orb orb3"></div>
   </div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <div class="hero-eyebrow">Bhindi Bazaar, Mumbai · Since 1971</div>
+      <h1 class="hero-h1">Where Smiles Are<br><em>Crafted with Care</em></h1>
+      <p class="hero-sub">Blending 53 years of trusted excellence with the latest advances in modern dentistry — now led by Dr. Ummulkiram Unwala, BDS (YMT Dental College) with a Postgraduate Diploma in Restorative Dentistry from Newcastle University, UK.</p>
+      <div class="hero-actions">
+        <a href="https://wa.me/918369786201" class="btn-primary" target="_blank">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Book on WhatsApp
+        </a>
+        <a href="#" onclick="showPage('services')" class="btn-secondary">
+          View Services
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14m-7-7 7 7-7 7"/></svg>
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat-item">
+          <div class="stat-num">53+</div>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">12</div>
+          <div class="stat-label">Treatments Offered</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">5★</div>
+          <div class="stat-label">Patient Satisfaction</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-image-wrap">
+      <div class="hero-deco-ring"></div>
+      <div class="hero-image-frame">
+        <img src="founder.png" alt="Dr. Ummulkiram Unwala — Dental Surgeon" loading="eager">
+        <div class="hero-image-overlay"></div>
+        <div class="hero-tag">
+          <div class="hero-tag-name">Dr. Ummulkiram Unwala</div>
+          <div class="hero-tag-sub">BDS · PG Dip. Restorative Dentistry, Newcastle University</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
 
-  <!-- ════════════════════ ABOUT ════════════════════ -->
-  <div class="page hidden-page" id="page-about">
-    <header class="page-header">
-      <div class="breadcrumb"><a data-route="home">Home</a><span class="sep">/</span><span class="current">About</span></div>
-      <h1 class="page-title">Five decades of smiles,<br>now elevated.</h1>
-      <p class="page-sub">Internationally trained, rooted in Mumbai — a practice built on trust, care, and a deeply personal touch.</p>
-    </header>
-
-    <section id="about-teaser" style="background:var(--white);">
-      <div>
-        <p class="section-eyebrow">Our Story</p>
-        <h2 class="section-title">Founded in 1973. Carried forward today.</h2>
-        <p class="section-body">Dr. Unwala's Dental Clinic was founded in 1973 by Dr. Yusuf Unwala, a name synonymous with trusted dental care in Bhindi Bazaar. Today, his daughter Dr. Ummulkiram Unwala carries that legacy forward — with international training and a deeply personal touch.</p>
-        <p class="section-body">Patients choose us because we take the time to understand each individual's needs, offer honest advice, and deliver results in a calm, welcoming space. Whether it's your child's first visit or a complete smile transformation, you're in the best hands.</p>
-        <div class="credentials">
-          <div class="credential-item">
-            <div class="credential-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+<!-- LEGACY -->
+<section id="legacy">
+  <div class="container">
+    <div class="legacy-grid">
+      <div class="legacy-images">
+        <div class="clinic-img reveal">
+          <img src="clinic.png" alt="Dr. Unwala's Dental Clinic interior" loading="lazy">
+        </div>
+        <div class="clinic-img reveal reveal-delay-2">
+          <img src="clinic.png" alt="Dr. Unwala's Dental Clinic" loading="lazy">
+        </div>
+        <div class="legacy-badge">
+          <div class="legacy-badge-num">53</div>
+          <div class="legacy-badge-text">Years Trusted</div>
+        </div>
+      </div>
+      <div class="legacy-text">
+        <div class="section-tag reveal">Our Legacy</div>
+        <h2 class="legacy-h2 reveal reveal-delay-1">A Heritage of<br><em>Exceptional</em> Smiles</h2>
+        <p class="legacy-p reveal reveal-delay-2">Founded in 1971 by the late Dr. Yusuf Unwala, our practice has been a cornerstone of dental care in Bhindi Bazaar for over five decades. Built on a foundation of trust, compassion, and clinical excellence.</p>
+        <p class="legacy-p reveal reveal-delay-3">Today, Dr. Ummulkiram Unwala carries this legacy forward. A graduate of YMT Dental College, Mumbai, she went on to earn a Postgraduate Diploma in Restorative Dentistry from Newcastle University, UK — bringing world-class clinical training and a warmly personal approach to every patient.</p>
+        <blockquote class="legacy-quote reveal reveal-delay-2">
+          "We take the time to understand each patient's needs and deliver care that feels personal — because it is."
+        </blockquote>
+        <div class="legacy-detail reveal reveal-delay-3">
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </div>
             <div>
-              <div class="credential-degree">BDS — Bachelor of Dental Surgery</div>
-              <div class="credential-school">YMT Dental College & Hospital, Navi Mumbai</div>
+              <div class="detail-label">Location</div>
+              <div class="detail-val">Al Saddah Complex, Bhindi Bazaar</div>
             </div>
           </div>
-          <div class="credential-item">
-            <div class="credential-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg></div>
+          <div class="detail-item">
+            <div class="detail-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+                <circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
             <div>
-              <div class="credential-degree">PG Diploma in Restorative Dentistry</div>
-              <div class="credential-school">Newcastle University, United Kingdom</div>
+              <div class="detail-label">Hours</div>
+              <div class="detail-val">Mon–Sat · 10am to 8pm</div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="about-image-grid">
-        <div class="about-img-wrap">
-          <div class="img-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Dr. Ummulkiram portrait<br><small>Replace with image</small></span>
-          </div>
-        </div>
-        <div class="about-img-wrap">
-          <div class="img-placeholder">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
-            <span>Clinic interior<br><small>Replace with image</small></span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Timeline -->
-    <section style="padding:20px 80px 90px;background:var(--white);">
-      <div class="section-header">
-        <p class="section-eyebrow">Our Journey</p>
-        <h2 class="section-title">A legacy, in stages.</h2>
-      </div>
-      <div class="timeline">
-        <div class="timeline-item">
-          <div class="timeline-year">1973</div>
-          <div class="timeline-content">
-            <div class="timeline-content-title">The clinic is founded</div>
-            <div class="timeline-content-desc">Dr. Yusuf Unwala opens his practice in Bhindi Bazaar, bringing modern dental care to the local community for the first time.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">1990s</div>
-          <div class="timeline-content">
-            <div class="timeline-content-title">A trusted name across generations</div>
-            <div class="timeline-content-desc">Word of mouth grows the practice into a multi-generational fixture — families return decade after decade.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">2010s</div>
-          <div class="timeline-content">
-            <div class="timeline-content-title">Dr. Ummulkiram trains internationally</div>
-            <div class="timeline-content-desc">After completing her BDS, she pursues a PG Diploma in Restorative Dentistry at Newcastle University, UK.</div>
-          </div>
-        </div>
-        <div class="timeline-item">
-          <div class="timeline-year">Today</div>
-          <div class="timeline-content">
-            <div class="timeline-content-title">The legacy continues</div>
-            <div class="timeline-content-desc">Dr. Ummulkiram leads the clinic with modern techniques — Invisalign, implants, full mouth rehabilitation — and the same personal warmth the practice was built on.</div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Values -->
-    <section style="padding:0 80px 100px;background:var(--white);">
-      <div class="section-header">
-        <p class="section-eyebrow">What We Believe</p>
-        <h2 class="section-title">The principles behind every visit.</h2>
-      </div>
-      <div class="values-grid">
-        <div class="value-card">
-          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
-          <div class="value-title">Honest Care</div>
-          <div class="value-desc">We recommend only what you actually need — never more, never less.</div>
-        </div>
-        <div class="value-card">
-          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-          <div class="value-title">Gentle by Design</div>
-          <div class="value-desc">From kids to seniors, every visit is paced to your comfort, not the clock.</div>
-        </div>
-        <div class="value-card">
-          <div class="value-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.4 7.2H22l-6 4.6 2.3 7.2L12 16.4l-6.3 4.6 2.3-7.2-6-4.6h7.6z"/></svg></div>
-          <div class="value-title">Modern Standards</div>
-          <div class="value-desc">International training paired with up-to-date equipment and technique.</div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ════════════════════ SERVICES ════════════════════ -->
-  <div class="page hidden-page" id="page-services">
-    <header class="page-header">
-      <div class="breadcrumb"><a data-route="home">Home</a><span class="sep">/</span><span class="current">Services</span></div>
-      <h1 class="page-title">Comprehensive care,<br>under one roof.</h1>
-      <p class="page-sub">From routine cleanings to full mouth rehabilitation — every treatment is explained clearly before we begin.</p>
-    </header>
-
-    <section id="services-page">
-      <div class="services-grid-full">
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C8 2 5 5 5 9c0 6 7 13 7 13s7-7 7-13c0-4-3-7-7-7z"/></svg></div>
-          <div>
-            <div class="service-name">General Dentistry</div>
-            <div class="service-desc">Routine check-ups, cleanings, and preventative care to keep your teeth healthy for life. Regular visits catch small issues before they become big ones.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20General%20Dentistry." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 8v4l2 2"/></svg></div>
-          <div>
-            <div class="service-name">Root Canal Treatment</div>
-            <div class="service-desc">Pain-free root canal therapy using modern techniques to save your natural tooth, performed under local anaesthesia for comfort throughout.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Root%20Canal%20Treatment." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 6h12M6 12h12M6 18h12"/></svg></div>
-          <div>
-            <div class="service-name">Braces</div>
-            <div class="service-desc">Traditional metal and ceramic braces to align your smile with precision and care, suited for more complex orthodontic cases.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Braces." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="8" width="18" height="8" rx="4"/><path d="M9 8V6a3 3 0 016 0v2"/></svg></div>
-          <div>
-            <div class="service-name">Invisalign & Aligners</div>
-            <div class="service-desc">Discreet clear aligner therapy — straighten your teeth without anyone knowing. Most cases complete within 6–18 months.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Invisalign." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20h16M4 20a2 2 0 01-2-2V6a2 2 0 012-2h16a2 2 0 012 2v12a2 2 0 01-2 2"/></svg></div>
-          <div>
-            <div class="service-name">Dentures</div>
-            <div class="service-desc">Custom-fitted partial and complete dentures crafted for comfort and a natural appearance, restoring confidence in your smile.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Dentures." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="9" r="4"/><path d="M12 13v8M9 18h6"/></svg></div>
-          <div>
-            <div class="service-name">Dental Implants</div>
-            <div class="service-desc">Permanent titanium implants that look, feel, and function just like your natural teeth — the most durable option for missing teeth.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Dental%20Implants." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-          <div>
-            <div class="service-name">Full Mouth Rehabilitation</div>
-            <div class="service-desc">Comprehensive reconstruction of the entire dentition — restoring aesthetics and function together for complex, long-standing issues.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Full%20Mouth%20Rehabilitation." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2a5 5 0 015 5c0 3-2 5-5 7-3-2-5-4-5-7a5 5 0 015-5z"/><path d="M12 21v-7"/></svg></div>
-          <div>
-            <div class="service-name">Crowns & Bridges</div>
-            <div class="service-desc">High-strength porcelain crowns and bridges to restore damaged or missing teeth seamlessly, matched to your natural shade.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Crowns%20%26%20Bridges." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2C9 2 7 4 7 7c0 4 5 8 5 8s5-4 5-8c0-3-2-5-5-5z"/><circle cx="12" cy="7" r="2"/></svg></div>
-          <div>
-            <div class="service-name">Tooth-Coloured Fillings</div>
-            <div class="service-desc">Composite resin fillings that match your natural tooth shade — invisible and durable, a modern alternative to metal fillings.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Tooth-Coloured%20Fillings." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
-          <div>
-            <div class="service-name">Paediatric Dentistry</div>
-            <div class="service-desc">Gentle, child-friendly care to build healthy dental habits from the very first tooth, in an environment designed to ease young nerves.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20Paediatric%20Dentistry." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-        <div class="service-card-full">
-          <div class="service-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 4v16"/></svg></div>
-          <div>
-            <div class="service-name">Dental Consultation</div>
-            <div class="service-desc">Detailed consultations with in-house digital X-rays, diagnosis, and a personalised treatment plan tailored to your needs.</div>
-            <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20enquire%20about%20a%20Dental%20Consultation." class="service-link" target="_blank">Enquire about this →</a>
-          </div>
-        </div>
-
-      </div>
-
-      <div class="services-cta-banner">
-        <h2 class="section-title">Not sure where to start?</h2>
-        <p>Book a consultation and let Dr. Unwala guide you to the right treatment for your needs.</p>
-        <a href="https://wa.me/918369786201?text=Hi%2C%20I%27d%20like%20to%20book%20a%20dental%20consultation." class="btn-primary" target="_blank">Book on WhatsApp</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ════════════════════ RESULTS ════════════════════ -->
-  <div class="page hidden-page" id="page-results">
-    <header class="page-header">
-      <div class="breadcrumb"><a data-route="home">Home</a><span class="sep">/</span><span class="current">Results</span></div>
-      <h1 class="page-title">Real smiles,<br>real transformations.</h1>
-      <p class="page-sub">A look at the kind of outcomes patients can expect — shown with permission, across a range of treatments.</p>
-    </header>
-
-    <section id="results-page">
-      <div class="ba-grid">
-        <div class="ba-card">
-          <div class="ba-images">
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>Before photo</span></div><div class="ba-label">Before</div></div>
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>After photo</span></div><div class="ba-label after">After</div></div>
-          </div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Smile Makeover with Veneers</div>
-            <div class="ba-caption-desc">Porcelain veneers to even out shape, shade, and alignment.</div>
-          </div>
-        </div>
-        <div class="ba-card">
-          <div class="ba-images">
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>Before photo</span></div><div class="ba-label">Before</div></div>
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>After photo</span></div><div class="ba-label after">After</div></div>
-          </div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Invisalign Treatment</div>
-            <div class="ba-caption-desc">Clear aligners used to correct crowding over 10 months.</div>
-          </div>
-        </div>
-        <div class="ba-card">
-          <div class="ba-images">
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>Before photo</span></div><div class="ba-label">Before</div></div>
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>After photo</span></div><div class="ba-label after">After</div></div>
-          </div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Full Mouth Rehabilitation</div>
-            <div class="ba-caption-desc">Complete reconstruction restoring both bite and appearance.</div>
-          </div>
-        </div>
-        <div class="ba-card">
-          <div class="ba-images">
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>Before photo</span></div><div class="ba-label">Before</div></div>
-            <div class="ba-slot"><div class="ba-img-placeholder"><span>After photo</span></div><div class="ba-label after">After</div></div>
-          </div>
-          <div class="ba-caption">
-            <div class="ba-caption-title">Crown & Bridge Restoration</div>
-            <div class="ba-caption-desc">Porcelain crown and bridge work replacing two damaged teeth.</div>
-          </div>
-        </div>
-      </div>
-      <p class="results-note">Results vary by individual case. Photos shown are illustrative of treatment types offered at the clinic. Book a consultation to discuss what's achievable for your smile.</p>
-    </section>
-  </div>
-
-  <!-- ════════════════════ PRICING ════════════════════ -->
-  <div class="page hidden-page" id="page-pricing">
-    <header class="page-header">
-      <div class="breadcrumb"><a data-route="home">Home</a><span class="sep">/</span><span class="current">Pricing</span></div>
-      <h1 class="page-title">Quality care,<br>at honest prices.</h1>
-      <p class="page-sub">No hidden charges, no surprises — just clear answers before you commit to anything.</p>
-    </header>
-
-    <section id="pricing-page">
-      <p class="pricing-note">Pricing is tailored to each patient's individual needs. Reach out and we'll guide you from there.</p>
-      <div class="pricing-table">
-        <div class="pricing-row header"><span>Treatment</span><span></span></div>
-        <div class="pricing-row"><span class="pricing-service">Dental Consultation + X-Ray</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20a%20Dental%20Consultation." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Scaling & Cleaning</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Scaling%20%26%20Cleaning." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Tooth-Coloured Filling</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Tooth-Coloured%20Fillings." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Root Canal Treatment</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Root%20Canal%20Treatment." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Porcelain Crown</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Porcelain%20Crowns." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Dental Implant (per tooth)</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Dental%20Implants." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Braces (metal)</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Braces." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Invisalign / Clear Aligners</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Invisalign." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Dentures (full)</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Dentures." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-        <div class="pricing-row"><span class="pricing-service">Full Mouth Rehabilitation</span><a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20enquire%20about%20Full%20Mouth%20Rehabilitation." class="pricing-enquire" target="_blank">Enquire Now</a></div>
-      </div>
-      <div class="pricing-cta">
-        <p>Detailed quotes provided after your in-clinic consultation. No hidden charges, ever.</p>
-        <a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20book%20a%20consultation." class="btn-primary" target="_blank">Book a Consultation</a>
-      </div>
-    </section>
-  </div>
-
-  <!-- ════════════════════ TESTIMONIALS + FAQ ════════════════════ -->
-  <div class="page hidden-page" id="page-testimonials">
-    <header class="page-header">
-      <div class="breadcrumb"><a data-route="home">Home</a><span class="sep">/</span><span class="current">Reviews & FAQ</span></div>
-      <h1 class="page-title">What patients say,<br>and what they ask.</h1>
-      <p class="page-sub">Real reviews from real patients, plus answers to the questions we hear most.</p>
-    </header>
-
-    <section id="testimonials-page">
-      <div class="section-header">
-        <p class="section-eyebrow">Patient Stories</p>
-        <h2 class="section-title">What our patients say.</h2>
-      </div>
-      <div class="testimonials-grid">
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"Dr. Unwala is exceptional. She took the time to explain every step, and my Invisalign results are beyond what I imagined. The clinic is clean, modern, and the staff are so warm."</div>
-          <div class="testimonial-author">Fatima S.</div>
-          <div class="testimonial-location">Bhindi Bazaar, Mumbai</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"I had a severe toothache and they fit me in the same day. The root canal was completely painless. Years of dental anxiety — gone. I can't recommend this clinic enough."</div>
-          <div class="testimonial-author">Rahul M.</div>
-          <div class="testimonial-location">Colaba, Mumbai</div>
-        </div>
-        <div class="testimonial-card">
-          <div class="testimonial-stars">★★★★★</div>
-          <div class="testimonial-text">"My whole family has been coming here for years. Dr. Ummulkiram has the same dedication as Dr. Yusuf did. She's patient with my kids and treats every patient like family."</div>
-          <div class="testimonial-author">Zainab K.</div>
-          <div class="testimonial-location">Kalbadevi, Mumbai</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="faq-page">
-      <div class="section-header">
-        <p class="section-eyebrow">Common Questions</p>
-        <h2 class="section-title">Everything you need to know.</h2>
-      </div>
-      <div class="faq-list">
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">How do I book an appointment?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">You can book directly via WhatsApp by clicking any "Book Appointment" button on this site. We also accept walk-ins, though appointments are recommended to minimise wait times.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Is the clinic suitable for children?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Absolutely. Dr. Unwala offers dedicated paediatric dentistry services. The clinic environment is designed to be welcoming and stress-free for children of all ages, from their very first visit onwards.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Do you offer EMI or payment plans?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Yes, flexible payment options are available for longer treatments such as implants and full mouth rehabilitation. Please ask our team during your consultation for details.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">Is root canal treatment painful?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Modern root canal treatment is performed under local anaesthesia and is typically no more uncomfortable than a standard filling. Many patients are surprised by how painless the procedure is.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">How long does Invisalign treatment take?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">Treatment duration varies based on complexity, but most cases are completed within 6 to 18 months. A consultation with Dr. Unwala will give you a precise timeline for your specific case.</div>
-        </div>
-        <div class="faq-item">
-          <button class="faq-q" onclick="toggleFaq(this)">What are your clinic hours?<svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg></button>
-          <div class="faq-a">We are open Monday to Saturday, 10:00 AM to 7:00 PM. Closed on Sundays and public holidays. For urgent dental concerns, please WhatsApp us and we'll do our best to accommodate you.</div>
-        </div>
-      </div>
-    </section>
-  </div>
-
-  <!-- ════════════════════ CONTACT ════════════════════ -->
-  <div class="page hidden-page" id="page-contact">
-    <div id="contact-page">
-      <header class="page-header" style="background:transparent;padding-top:160px;">
-        <div class="breadcrumb" style="color:#888;"><a data-route="home" style="color:#888;">Home</a><span class="sep" style="color:#444;">/</span><span class="current">Contact</span></div>
-        <h1 class="page-title" style="color:var(--white);">We're one message away.</h1>
-        <p class="page-sub" style="color:#aaa;">Come visit us at the Al Saddah Shopping Complex, Bhindi Bazaar — a short walk from Crawford Market.</p>
-      </header>
-
-      <div class="contact-grid" style="padding-top:60px;">
-        <div class="contact-left">
-          <div class="contact-details">
-            <div class="contact-item">
-              <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-              <div>
-                <div class="contact-item-label">Address</div>
-                <div class="contact-item-value">Al Saddah Shopping Complex, 1st Floor, F-11<br>Bhindi Bazaar, Mumbai 400 003</div>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.3 11.5 19.79 19.79 0 011.21 2.87 2 2 0 013.19 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
-              <div>
-                <div class="contact-item-label">Phone</div>
-                <div class="contact-item-value">+91 83697 86201</div>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-item-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
-              <div>
-                <div class="contact-item-label">Hours</div>
-                <div class="contact-item-value">Mon – Sat · 10:00 AM – 7:00 PM<br>Closed Sundays</div>
-              </div>
-            </div>
-          </div>
-          <div class="social-links">
-            <a href="https://www.instagram.com/dr_ummulkiram" class="social-link" target="_blank" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
-            <a href="https://www.facebook.com/share/1BHV8PEbRu/" class="social-link" target="_blank" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
-            <a href="https://www.linkedin.com/in/ummulkiram-unwala-3a7012139" class="social-link" target="_blank" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          </div>
-        </div>
-
-        <div class="contact-right">
-          <h3>Book your appointment</h3>
-          <p>Tap below — it's the fastest way to reach us.</p>
-          <a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%27d%20like%20to%20book%20an%20appointment." class="wa-btn" target="_blank">
-            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.557 4.122 1.532 5.85L.057 23.855a.5.5 0 00.609.607l6.102-1.558A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.58 9.58 0 01-4.9-1.349l-.351-.208-3.621.924.966-3.526-.229-.362A9.573 9.573 0 012.4 12C2.4 6.698 6.698 2.4 12 2.4c5.302 0 9.6 4.298 9.6 9.6 0 5.302-4.298 9.6-9.6 9.6z"/></svg>
-            Chat on WhatsApp
-          </a>
-          <div class="divider-text">or</div>
-          <a href="tel:+918369786201" class="call-link">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 014.3 11.5 19.79 19.79 0 011.21 2.87 2 2 0 013.19 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 8.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-            Call +91 83697 86201
-          </a>
-          <div style="margin-top:28px;padding-top:24px;border-top:1px solid #333;">
-            <div style="font-size:0.72rem;color:#555;margin-bottom:12px;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Find us</div>
-            <div style="font-size:0.82rem;color:#888;line-height:1.6;">Al Saddah Shopping Complex<br>F-11, 1st Floor, Bhindi Bazaar<br>Mumbai 400 003</div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-</div><!-- /page-root -->
+<!-- TRANSFORMATIONS (HOME PREVIEW) -->
+<section id="transformations">
+  <div class="container">
+    <div class="ba-header">
+      <div class="section-tag reveal">Real Results</div>
+      <h2 class="section-title reveal reveal-delay-1">Patient <em style="font-style:italic;color:var(--rose)">Transformations</em></h2>
+      <p class="section-sub reveal reveal-delay-2">From routine care to complete smile makeovers — see the difference expert dentistry can make.</p>
+    </div>
+    <div class="ba-grid">
+      <div class="ba-card reveal">
+        <div class="ba-label-row">
+          <span class="ba-lbl before">Before</span>
+          <span class="ba-lbl after">After</span>
+        </div>
+        <div class="ba-image">
+          <img src="change1.png" alt="Full mouth rehabilitation with complete dentures — before and after" loading="lazy">
+        </div>
+        <div class="ba-caption">
+          <div class="ba-caption-title">Full Mouth Rehabilitation</div>
+          <div class="ba-caption-sub">Complete dentures — restored function & aesthetics from the ground up</div>
+        </div>
+      </div>
+      <div class="ba-card reveal reveal-delay-1">
+        <div class="ba-label-row">
+          <span class="ba-lbl before">Before</span>
+          <span class="ba-lbl after">After</span>
+        </div>
+        <div class="ba-image">
+          <img src="change2.png" alt="Replacement of missing teeth with resin bonded bridge — before and after" loading="lazy">
+        </div>
+        <div class="ba-caption">
+          <div class="ba-caption-title">Missing Teeth Replacement</div>
+          <div class="ba-caption-sub">Resin bonded bridge — seamless, natural-looking restoration</div>
+        </div>
+      </div>
+      <div class="ba-card reveal reveal-delay-2">
+        <div class="ba-label-row">
+          <span class="ba-lbl before">Before</span>
+          <span class="ba-lbl after">After</span>
+        </div>
+        <div class="ba-image">
+          <img src="change3.png" alt="Bite correction with Invisalign — before and after" loading="lazy">
+        </div>
+        <div class="ba-caption">
+          <div class="ba-caption-title">Bite Correction</div>
+          <div class="ba-caption-sub">Invisalign aligner therapy — discreet teeth straightening</div>
+        </div>
+      </div>
+      <div class="ba-card reveal reveal-delay-3">
+        <div class="ba-label-row">
+          <span class="ba-lbl before">Before</span>
+          <span class="ba-lbl after">After</span>
+        </div>
+        <div class="ba-image">
+          <img src="change4.png" alt="Oral prophylaxis to improve oral hygiene — before and after" loading="lazy">
+        </div>
+        <div class="ba-caption">
+          <div class="ba-caption-title">Oral Prophylaxis</div>
+          <div class="ba-caption-sub">Professional cleaning to restore and improve oral hygiene</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ─── FOOTER ─── -->
-<footer>
-  <div class="footer-logo">Dr. Unwala's Dental Clinic · Est. 1973</div>
-  <ul class="footer-links">
-    <li><a data-route="about">About</a></li>
-    <li><a data-route="services">Services</a></li>
-    <li><a data-route="pricing">Pricing</a></li>
-    <li><a data-route="contact">Contact</a></li>
-  </ul>
-  <div class="footer-copy">© 2026 Dr. Unwala's Dental Clinic. All rights reserved.</div>
-</footer>
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="orb" style="width:500px;height:500px;background:var(--blush);top:-100px;right:-100px"></div>
+  <div class="orb" style="width:300px;height:300px;background:var(--lavender);bottom:-50px;left:-50px"></div>
+  <div class="testimonials-header container">
+    <div class="section-tag">Patient Stories</div>
+    <h2 class="section-title">What Our Patients Say</h2>
+    <p class="section-sub">Trusted by families across Mumbai for over five decades.</p>
+  </div>
+  <div class="testimonials-track">
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I had always been terrified of the dentist, but Dr. Ummulkiram made me feel completely at ease. She explained every step, never rushed me, and the result of my root canal was genuinely painless."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">F</div>
+        <div>
+          <div class="testi-name">Fatima R.</div>
+          <div class="testi-loc">Bhindi Bazaar, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"My daughter got her braces here and we couldn't be happier. Dr. Unwala is patient with children and the clinic is spotlessly clean. We've been coming for three generations."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">A</div>
+        <div>
+          <div class="testi-name">Asma K.</div>
+          <div class="testi-loc">Colaba, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The full mouth rehabilitation changed my life. I hadn't smiled confidently in years. Dr. Ummulkiram was thorough, honest about the process, and the final result exceeded every expectation."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">R</div>
+        <div>
+          <div class="testi-name">Rizwan M.</div>
+          <div class="testi-loc">Crawford Market, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"Got Invisalign here and the process was seamless. Very professional practice with cutting-edge equipment. Dr. Unwala is brilliant at her craft and makes you feel genuinely cared for."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">Z</div>
+        <div>
+          <div class="testi-name">Zara S.</div>
+          <div class="testi-loc">Cuffe Parade, Mumbai</div>
+        </div>
+      </div>
+    </div>
+    <div class="testi-card">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"My father has been coming here since Dr. Yusuf Unwala's time. Now we bring our children too. The legacy of care and trust continues — perhaps even better. We wouldn't go anywhere else."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">I</div>
+        <div>
+          <div class="testi-name">Ibrahim T.</div>
+          <div class="testi-loc">Dongri, Mumbai</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-<!-- ─── BACK TO TOP ─── -->
-<button class="top-btn" id="topBtn" aria-label="Back to top">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
-</button>
+<!-- HOME CTA STRIP -->
+<section style="background:linear-gradient(90deg,var(--rose),var(--rose-dark));padding:64px 0">
+  <div class="container" style="text-align:center">
+    <h2 style="font-family:'Playfair Display',serif;font-size:2rem;color:white;margin-bottom:12px;font-weight:500">Ready for a smile you're proud of?</h2>
+    <p style="color:rgba(255,255,255,0.75);font-size:0.95rem;margin-bottom:32px">Book your consultation today — we'd love to meet you.</p>
+    <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+      <a href="https://wa.me/918369786201" target="_blank" class="btn-primary" style="background:white;color:var(--rose)">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Book on WhatsApp
+      </a>
+      <a href="#" onclick="showPage('contact')" class="btn-secondary">Get in Touch</a>
+    </div>
+  </div>
+</section>
 
-<!-- ─── WHATSAPP FLOAT ─── -->
-<a href="https://wa.me/918369786201?text=Hi%20Dr.%20Unwala%2C%20I%20have%20a%20question." class="wa-float" target="_blank" aria-label="Chat on WhatsApp">
-  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.124.557 4.122 1.532 5.85L.057 23.855a.5.5 0 00.609.607l6.102-1.558A11.942 11.942 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.6a9.58 9.58 0 01-4.9-1.349l-.351-.208-3.621.924.966-3.526-.229-.362A9.573 9.573 0 012.4 12C2.4 6.698 6.698 2.4 12 2.4c5.302 0 9.6 4.298 9.6 9.6 0 5.302-4.298 9.6-9.6 9.6z"/></svg>
+</div><!-- end home page -->
+
+<!-- ═══════════════════════════════════════ SERVICES PAGE -->
+<div id="page-services" class="page-section">
+<section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:160px 0 100px;margin-top:0">
+  <div class="container" style="text-align:center">
+    <div class="section-tag" style="color:var(--blush);justify-content:center">What We Offer</div>
+    <h1 class="section-title" style="color:white;margin-bottom:16px">Our Services</h1>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto">Comprehensive dental care delivered with warmth, precision, and the latest technology.</p>
+  </div>
+</section>
+<section id="services" style="padding:80px 0 120px;background:var(--pearl)">
+  <div class="container">
+    <div class="pricing-grid" style="grid-template-columns:repeat(3,1fr)">
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="2"/><path d="M9 12h6M9 16h4"/></svg></div>
+        <div class="pricing-name">Dental Consultation</div>
+        <ul class="pricing-list">
+          <li>Full clinical oral examination</li>
+          <li>In-house digital X-rays if required</li>
+          <li>Personalised treatment plan</li>
+          <li>Honest, pressure-free advice</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+book+a+Dental+Consultation." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M12 2a7 7 0 0 1 7 7c0 5-7 13-7 13S5 14 5 9a7 7 0 0 1 7-7z"/><circle cx="12" cy="9" r="2.5"/></svg></div>
+        <div class="pricing-name">Root Canal Treatment</div>
+        <ul class="pricing-list">
+          <li>Saves natural teeth from extraction</li>
+          <li>Performed under local anaesthesia</li>
+          <li>Rotary instrumentation for precision</li>
+          <li>Near-painless, single or multi-visit</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+enquire+about+Root+Canal+Treatment." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M12 3c-1.2 5.4-5 7-5 12a5 5 0 0 0 10 0c0-5-3.8-6.6-5-12z"/><path d="M10 18a2 2 0 0 0 4 0"/></svg></div>
+        <div class="pricing-name">Invisalign & Aligners</div>
+        <ul class="pricing-list">
+          <li>Certified Invisalign provider</li>
+          <li>Fully removable & virtually invisible</li>
+          <li>No dietary restrictions</li>
+          <li>3D treatment preview before starting</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+know+more+about+Invisalign." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="pricing-name">Dental Braces</div>
+        <ul class="pricing-list">
+          <li>Metal & ceramic bracket options</li>
+          <li>Suitable for teens and adults</li>
+          <li>Full-journey treatment management</li>
+          <li>Regular progress monitoring</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+enquire+about+Dental+Braces." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><path d="M8 6h8v3a4 4 0 0 1-8 0V6z"/><path d="M8 15h8v1a4 4 0 0 1-8 0v-1z"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div>
+        <div class="pricing-name">Dental Implants</div>
+        <ul class="pricing-list">
+          <li>Titanium root-form implants</li>
+          <li>Look, feel & function like real teeth</li>
+          <li>Single tooth to full-arch solutions</li>
+          <li>Long-term, low-maintenance result</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+learn+about+Dental+Implants." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <div class="pricing-name">Full Mouth Rehabilitation</div>
+        <ul class="pricing-list">
+          <li>Comprehensive multi-treatment plan</li>
+          <li>Restores bite, function & aesthetics</li>
+          <li>Combines implants, crowns, dentures</li>
+          <li>Phased treatment available</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+discuss+Full+Mouth+Rehabilitation." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 0 1 4-4h4"/><circle cx="17" cy="17" r="4"/><path d="M15 17h4M17 15v4"/></svg></div>
+        <div class="pricing-name">Paediatric Dentistry</div>
+        <ul class="pricing-list">
+          <li>Gentle, child-friendly environment</li>
+          <li>First visits from age 2–3</li>
+          <li>Fluoride, sealants & early orthodontic screening</li>
+          <li>Building lifelong dental confidence</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+book+for+my+child." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><path d="M12 12v4M10 14h4"/></svg></div>
+        <div class="pricing-name">Crowns & Bridges</div>
+        <ul class="pricing-list">
+          <li>All-ceramic & zirconia options</li>
+          <li>Matched to your natural tooth shade</li>
+          <li>Restores strength to damaged teeth</li>
+          <li>Bridges fixed without implants</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+enquire+about+Crowns+or+Bridges." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M3 8a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4v1H3V8z"/><path d="M3 9v7a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4V9"/><path d="M8 14h8"/></svg></div>
+        <div class="pricing-name">Dentures</div>
+        <ul class="pricing-list">
+          <li>Complete & partial denture options</li>
+          <li>Custom-fitted for comfort & aesthetics</li>
+          <li>Natural appearance & improved bite</li>
+          <li>Implant-supported dentures available</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+enquire+about+Dentures." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M12 2C8 2 5 5 5 9c0 2.4 1 4.5 2.6 6L12 22l4.4-7C18 13.5 19 11.4 19 9c0-4-3-7-7-7z"/><circle cx="12" cy="9" r="2"/></svg></div>
+        <div class="pricing-name">Tooth Coloured Fillings</div>
+        <ul class="pricing-list">
+          <li>Mercury-free composite resin</li>
+          <li>Colour-matched to your natural teeth</li>
+          <li>Bonds directly to tooth structure</li>
+          <li>Strong, durable & aesthetically seamless</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+enquire+about+tooth+coloured+fillings." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-1">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="pricing-name">Oral Prophylaxis</div>
+        <ul class="pricing-list">
+          <li>Professional scaling & polishing</li>
+          <li>Removes calculus, plaque & stains</li>
+          <li>Prevents gum disease & decay</li>
+          <li>Recommended every 6 months</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+book+for+a+cleaning." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon"><svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8" stroke-linecap="round"><path d="M3 12a9 9 0 1 0 18 0 9 9 0 0 0-18 0"/><path d="M9 12h6M12 9v6"/></svg></div>
+        <div class="pricing-name">General Dentistry</div>
+        <ul class="pricing-list">
+          <li>Routine check-ups for all ages</li>
+          <li>Extractions & minor oral surgery</li>
+          <li>Gum disease assessment & management</li>
+          <li>Emergency dental care</li>
+        </ul>
+        <a href="https://wa.me/918369786201?text=Hi%2C+I%27d+like+to+book+a+general+dental+appointment." class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+    </div>
+    <div style="text-align:center;margin-top:64px">
+      <a href="https://wa.me/918369786201" target="_blank" class="btn-primary">
+        Not sure where to start? Chat with us on WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+</div><!-- end services page -->
+
+<!-- ═══════════════════════════════════════ PRICING PAGE -->
+<div id="page-pricing" class="page-section">
+<section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:160px 0 100px">
+  <div class="container" style="text-align:center">
+    <div class="section-tag" style="color:var(--blush);justify-content:center">Transparent Care</div>
+    <h1 class="section-title" style="color:white;margin-bottom:16px">Pricing Guide</h1>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto">Honest pricing with no hidden fees. All estimates are indicative — your personalised quote follows a consultation.</p>
+  </div>
+</section>
+<section id="pricing" style="padding:80px 0 120px">
+  <div class="container">
+    <p class="pricing-note">All prices are indicative. A detailed treatment plan and final quote will be provided after your consultation.</p>
+    <div class="pricing-grid">
+
+      <div class="pricing-card reveal">
+        <div class="pricing-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <div class="pricing-name">Routine & Preventive</div>
+        <div class="pricing-range">₹300 – ₹2,000</div>
+        <div class="pricing-est">Per visit / procedure</div>
+        <ul class="pricing-list">
+          <li>Dental Consultation + X-rays</li>
+          <li>Oral Prophylaxis (Cleaning)</li>
+          <li>Tooth Coloured Filling</li>
+          <li>Extraction</li>
+        </ul>
+        <a href="https://wa.me/918369786201" class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card featured reveal reveal-delay-1">
+        <div class="pricing-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <div class="pricing-name">Restorative & Cosmetic</div>
+        <div class="pricing-range">₹3,000 – ₹20,000</div>
+        <div class="pricing-est">Per tooth / procedure</div>
+        <ul class="pricing-list">
+          <li>Root Canal Treatment</li>
+          <li>Porcelain Crown</li>
+          <li>Dental Bridge</li>
+          <li>Veneers</li>
+        </ul>
+        <a href="https://wa.me/918369786201" class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+      <div class="pricing-card reveal reveal-delay-2">
+        <div class="pricing-icon">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="var(--rose)" stroke-width="1.8"><path d="M12 2v20M2 12h20"/></svg>
+        </div>
+        <div class="pricing-name">Advanced Treatments</div>
+        <div class="pricing-range">₹20,000+</div>
+        <div class="pricing-est">Customised per case</div>
+        <ul class="pricing-list">
+          <li>Dental Implants</li>
+          <li>Invisalign / Aligners</li>
+          <li>Full Mouth Rehabilitation</li>
+          <li>Complete Dentures</li>
+        </ul>
+        <a href="https://wa.me/918369786201" class="pricing-cta" target="_blank">Enquire on WhatsApp</a>
+      </div>
+
+    </div>
+    <p class="pricing-disclaimer">Prices are approximate estimates and may vary based on case complexity, materials used, and the number of teeth involved. EMI options may be available — please enquire.</p>
+    <div style="text-align:center;margin-top:48px">
+      <a href="https://wa.me/918369786201" target="_blank" class="btn-primary">Get Your Personalised Quote</a>
+    </div>
+  </div>
+</section>
+</div><!-- end pricing page -->
+
+<!-- ═══════════════════════════════════════ FAQ PAGE -->
+<div id="page-faq" class="page-section">
+<section style="background:linear-gradient(135deg,#1a0812,#3d1027);padding:160px 0 100px">
+  <div class="container" style="text-align:center">
+    <div class="section-tag" style="color:var(--blush);justify-content:center">Got Questions?</div>
+    <h1 class="section-title" style="color:white;margin-bottom:16px">Frequently Asked</h1>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);max-width:520px;margin:0 auto">Everything you need to know before your visit.</p>
+  </div>
+</section>
+<section id="faq" style="padding:80px 0 120px">
+  <div class="container">
+    <div class="faq-grid">
+      <div class="faq-left">
+        <div class="section-tag">Still Curious?</div>
+        <h2 class="section-title" style="font-size:2rem">Your questions,<br><em style="font-style:italic;color:var(--rose)">answered.</em></h2>
+        <p>We know visiting a dentist can feel daunting. We've put together answers to our most common questions to help you feel confident before your first appointment.</p>
+        <div class="faq-contact-box">
+          <p><strong>Can't find what you're looking for?</strong><br>We're happy to answer any questions directly over WhatsApp — no waiting, no forms.</p>
+          <a href="https://wa.me/918369786201" target="_blank" class="btn-primary" style="display:inline-flex;font-size:0.82rem;padding:12px 24px">
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+      <div class="faq-right">
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Is root canal treatment painful?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Modern root canal treatment is performed under local anaesthesia and is generally no more uncomfortable than a routine filling. Most patients are surprised by how painless the procedure is. Any mild soreness after the procedure typically resolves within a day or two.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Am I a candidate for Invisalign?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Invisalign works well for most mild to moderate alignment issues — crowding, spacing, overbite, underbite, and crossbite. Complex cases may be better suited to traditional braces. A consultation with Dr. Unwala will determine the most effective treatment for your specific case.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How long does a dental implant procedure take?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">The implant itself is placed in a single appointment (1–2 hours). Healing typically takes 3–6 months before the permanent crown is fitted. We monitor progress carefully throughout and will guide you at each stage.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            When should I first bring my child to the dentist?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">We recommend bringing children for their first visit around age 2–3, or as soon as their first teeth appear. Early visits help children become comfortable with dental care and allow us to monitor development from the start.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            How often should I have a dental check-up?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">We recommend a check-up and professional cleaning every 6 months for most patients. Those with a higher risk of gum disease or cavities may benefit from more frequent visits. Regular check-ups catch problems early — before they become costly or complex.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            Do you accept walk-ins?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">We welcome walk-in patients, though appointments are preferred to minimise your waiting time. You can easily book via WhatsApp — we typically respond within the hour during clinic hours.</div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-q" onclick="toggleFaq(this)">
+            What is full mouth rehabilitation?
+            <span class="faq-icon">+</span>
+          </button>
+          <div class="faq-a">Full mouth rehabilitation is a comprehensive treatment plan that addresses multiple dental issues simultaneously — combining crowns, bridges, implants, dentures, and other restorations to restore health, function, and aesthetics to the entire mouth. Dr. Unwala has extensive experience with complex FMR cases.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- end faq page -->
+
+<!-- ═══════════════════════════════════════ CONTACT PAGE -->
+<div id="page-contact" class="page-section">
+<section id="contact" style="padding-top:140px">
+  <div class="orb" style="width:600px;height:600px;background:var(--blush);top:-100px;right:-200px"></div>
+  <div class="orb" style="width:400px;height:400px;background:var(--lavender);bottom:0;left:-100px"></div>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="section-tag">Get in Touch</div>
+        <h1 class="section-title" style="font-size:2.8rem">We'd love to<br><em style="font-style:italic">meet you.</em></h1>
+        <p>Whether you have a question, need to book an appointment, or simply want to know more — we're here. Reach out and we'll get back to you promptly.</p>
+        <div class="contact-items">
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px">Address</div>
+              <div>Al Saddah Shopping Complex, 1st Floor, F-11, Bhindi Bazaar, Mumbai</div>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 14v2.92z"/></svg>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px">Phone / WhatsApp</div>
+              <a href="tel:+918369786201" style="color:rgba(255,255,255,0.8)">+91 83697 86201</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px">Email</div>
+              <a href="mailto:ummul786@gmail.com" style="color:rgba(255,255,255,0.8)">ummul786@gmail.com</a>
+            </div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            </div>
+            <div>
+              <div style="font-size:0.72rem;color:rgba(255,255,255,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:3px">Clinic Hours</div>
+              <div>Monday – Saturday: 10:00 AM – 8:00 PM</div>
+            </div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/dr_ummulkiram" class="social-link" target="_blank" title="Instagram" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.facebook.com/share/1BHV8PEbRu/" class="social-link" target="_blank" title="Facebook" aria-label="Facebook">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/ummulkiram-unwala-3a7012139" class="social-link" target="_blank" title="LinkedIn" aria-label="LinkedIn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" width="18" height="18"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          </a>
+          <a href="https://wa.me/918369786201" class="social-link" target="_blank" title="WhatsApp" aria-label="WhatsApp">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div class="contact-right">
+        <div class="contact-card">
+          <h2 style="font-family:'Playfair Display',serif;font-size:1.6rem;color:white;font-weight:500;margin-bottom:8px">Send us a message</h2>
+          <p style="font-size:0.85rem;color:rgba(255,255,255,0.45);margin-bottom:28px">We respond within a few hours during clinic hours.</p>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">First Name</label>
+              <input type="text" class="form-input" placeholder="Aamir">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Last Name</label>
+              <input type="text" class="form-input" placeholder="Khan">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="tel" class="form-input" placeholder="+91 98765 43210">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" class="form-input" placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Service Interested In</label>
+            <select class="form-input form-select">
+              <option value="">Select a treatment...</option>
+              <option>Dental Consultation</option>
+              <option>Root Canal Treatment</option>
+              <option>Invisalign / Aligners</option>
+              <option>Dental Implants</option>
+              <option>Full Mouth Rehabilitation</option>
+              <option>Braces</option>
+              <option>Crowns & Bridges</option>
+              <option>Dentures</option>
+              <option>Paediatric Dentistry</option>
+              <option>Oral Prophylaxis</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell us about your concern or ask any questions..."></textarea>
+          </div>
+          <a href="https://wa.me/918369786201" target="_blank" class="btn-submit">
+            <svg viewBox="0 0 24 24" fill="currentColor" width="18" height="18"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Send via WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div><!-- end contact page -->
+
+<!-- ═══════════════════════════════════════ WHATSAPP FLOAT -->
+<a href="https://wa.me/918369786201" class="wa-float" target="_blank" title="Chat on WhatsApp" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
 </a>
 
+<!-- ═══════════════════════════════════════ FOOTER (shown on all pages) -->
+<footer>
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        Dr. Unwala's Dental Clinic
+        <span>Al Saddah Complex, Bhindi Bazaar, Mumbai · Est. 1971</span>
+      </div>
+      <div class="footer-copy">© 2024 Dr. Unwala's Dental Clinic. All rights reserved.</div>
+      <div class="footer-craft">
+        Site by <a href="https://northstarweb.in" target="_blank">Northstar Web</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════ JAVASCRIPT -->
 <script>
-  // ─── ROUTER ───
-  // navToggle / navLinks declared up front since navigate() below references navLinks
-  const navToggle = document.getElementById('navToggle');
-  const navLinks = document.getElementById('navLinks');
+// ── LOADER ──────────────────────────────
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('fade-out');
+  }, 3200);
+});
 
-  const routes = ['home', 'about', 'services', 'results', 'pricing', 'testimonials', 'contact'];
-  const pageTitles = {
-    home: "Dr. Unwala's Dental Clinic | Expert Dental Care in Mumbai",
-    about: "About Us | Dr. Unwala's Dental Clinic",
-    services: "Services | Dr. Unwala's Dental Clinic",
-    results: "Patient Results | Dr. Unwala's Dental Clinic",
-    pricing: "Pricing | Dr. Unwala's Dental Clinic",
-    testimonials: "Reviews & FAQ | Dr. Unwala's Dental Clinic",
-    contact: "Contact Us | Dr. Unwala's Dental Clinic"
-  };
+// ── NAVBAR SCROLL ────────────────────────
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  if(window.scrollY > 40) navbar.classList.add('scrolled');
+  else navbar.classList.remove('scrolled');
+}, {passive:true});
 
-  function getRouteFromHash() {
-    const hash = window.location.hash.replace('#/', '').replace('#', '');
-    return routes.includes(hash) ? hash : 'home';
+// ── PAGE NAVIGATION ───────────────────────
+function showPage(name) {
+  document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+  document.getElementById('page-'+name).classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+  // Re-trigger reveals for the new page
+  setTimeout(initReveal, 100);
+  return false;
+}
+
+// ── MOBILE MENU ──────────────────────────
+function toggleMenu() {
+  const menu = document.getElementById('mobileMenu');
+  const ham = document.getElementById('hamburger');
+  const isOpen = menu.classList.contains('open');
+  if(isOpen) {
+    menu.classList.remove('open');
+    ham.style.color = '';
+  } else {
+    menu.classList.add('open');
+    ham.style.color = 'var(--rose)';
   }
+}
 
-  function navigate(route, pushState = true) {
-    if (!routes.includes(route)) route = 'home';
-
-    document.querySelectorAll('.page').forEach(p => p.classList.add('hidden-page'));
-    const target = document.getElementById('page-' + route);
-    if (target) target.classList.remove('hidden-page');
-
-    // retrigger page-in animation
-    const root = document.getElementById('page-root');
-    root.style.animation = 'none';
-    void root.offsetWidth;
-    root.style.animation = '';
-
-    document.querySelectorAll('.nav-links a[data-route]').forEach(a => {
-      a.classList.toggle('active', a.dataset.route === route);
-    });
-
-    document.title = pageTitles[route] || pageTitles.home;
-
-    if (pushState) {
-      window.location.hash = '#/' + route;
-    }
-
-    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
-    navLinks.classList.remove('open');
-  }
-
-  document.addEventListener('click', (e) => {
-    const el = e.target.closest('[data-route]');
-    if (el) {
-      e.preventDefault();
-      navigate(el.dataset.route);
-    }
-  });
-
-  window.addEventListener('hashchange', () => navigate(getRouteFromHash(), false));
-
-  // initial route
-  navigate(getRouteFromHash(), false);
-
-  // ─── LOADER ───
-  // Don't rely on window 'load' — in some embedded/preview contexts it can fire
-  // unreliably or never, leaving the loader stuck. Use a plain timer instead,
-  // started as soon as this script runs.
-  function hideLoader() {
-    const loader = document.getElementById('loader');
-    if (loader) loader.classList.add('hidden');
-  }
-  setTimeout(hideLoader, 700);
-
-  // ─── NAV SCROLL EFFECT ───
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 20);
-    document.getElementById('topBtn').classList.toggle('show', window.scrollY > 500);
-  });
-
-  // ─── MOBILE NAV TOGGLE ───
-  navToggle.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
-  });
-
-  // ─── BACK TO TOP ───
-  document.getElementById('topBtn').addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
-
-  // ─── FAQ ACCORDION ───
-  function toggleFaq(btn) {
-    const answer = btn.nextElementSibling;
-    const isOpen = btn.classList.contains('open');
-    document.querySelectorAll('.faq-q').forEach(b => {
-      b.classList.remove('open');
-      b.nextElementSibling.classList.remove('open');
-    });
-    if (!isOpen) {
-      btn.classList.add('open');
-      answer.classList.add('open');
-    }
-  }
-
-  // ─── SCROLL REVEAL ───
-  const observerOptions = { threshold: 0.1, rootMargin: '0px 0px -40px 0px' };
+// ── SCROLL REVEAL ────────────────────────
+function initReveal() {
+  const reveals = document.querySelectorAll('.page-section.active .reveal');
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translateY(0)';
+    entries.forEach(e => {
+      if(e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
       }
     });
-  }, observerOptions);
+  }, {threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(r => observer.observe(r));
+}
+document.addEventListener('DOMContentLoaded', initReveal);
 
-  function observeRevealTargets() {
-    const revealTargets = document.querySelectorAll('.service-card-full, .ba-card, .testimonial-card, .credential-item, .nav-card, .value-card');
-    revealTargets.forEach((el, i) => {
-      if (el.dataset.observed) return;
-      el.dataset.observed = '1';
-      el.style.opacity = '0';
-      el.style.transform = 'translateY(16px)';
-      el.style.transition = `opacity 0.5s ease ${Math.min(i * 0.05, 0.4)}s, transform 0.5s ease ${Math.min(i * 0.05, 0.4)}s`;
-      observer.observe(el);
-    });
+// ── FAQ ACCORDION ────────────────────────
+function toggleFaq(btn) {
+  const answer = btn.nextElementSibling;
+  const isOpen = answer.classList.contains('open');
+  // Close all
+  document.querySelectorAll('.faq-a.open').forEach(a => a.classList.remove('open'));
+  document.querySelectorAll('.faq-q.open').forEach(q => q.classList.remove('open'));
+  if(!isOpen) {
+    answer.classList.add('open');
+    btn.classList.add('open');
   }
-  observeRevealTargets();
-  // re-scan after each route change for newly-shown elements
-  const navObserver = new MutationObserver(observeRevealTargets);
-  navObserver.observe(document.getElementById('page-root'), { attributes: true, subtree: true, attributeFilter: ['class'] });
+}
+
+// ── SMOOTH NAV HIGHLIGHT ─────────────────
+// Make nav links active based on current page
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', function(){
+    document.querySelectorAll('.nav-links a').forEach(x => x.style.color='');
+    this.style.color = 'var(--rose)';
+  });
+});
+
+// ── TESTIMONIALS DRAG SCROLL ─────────────
+const track = document.querySelector('.testimonials-track');
+if(track) {
+  let isDown=false,startX,scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown=true;startX=e.pageX-track.offsetLeft;scrollLeft=track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => isDown=false);
+  track.addEventListener('mouseup', () => isDown=false);
+  track.addEventListener('mousemove', e => {
+    if(!isDown) return;
+    e.preventDefault();
+    const x=e.pageX-track.offsetLeft;
+    track.scrollLeft=scrollLeft-(x-startX)*1.5;
+  });
+}
+
+// ── CONTACT FORM → WHATSAPP ──────────────
+document.querySelector('.btn-submit')?.addEventListener('click', function(e) {
+  e.preventDefault();
+  const fn = document.querySelector('input[placeholder="Aamir"]')?.value || '';
+  const ln = document.querySelector('input[placeholder="Khan"]')?.value || '';
+  const phone = document.querySelector('input[type="tel"]')?.value || '';
+  const service = document.querySelector('.form-select')?.value || '';
+  const msg = document.querySelector('.form-textarea')?.value || '';
+  const text = `Hi Dr. Unwala's Clinic! My name is ${fn} ${ln}. Phone: ${phone}. Interested in: ${service}. ${msg}`;
+  window.open(`https://wa.me/918369786201?text=${encodeURIComponent(text)}`, '_blank');
+});
 </script>
+
 </body>
 </html>
